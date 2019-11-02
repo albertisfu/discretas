@@ -1,0 +1,12 @@
+.titulo{
+    text-align: center;
+}
+.p_text{
+    text-align: justify;
+}
+
+.hr_style{
+    color: #ccc;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+}

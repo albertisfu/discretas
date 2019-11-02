@@ -1,0 +1,47 @@
+ /*Estilos*/
+    .vertice {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border: 1px solid black;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      font-weight: bolder;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      z-index: 5;
+    }
+    .div_canvas {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border: 0px;
+      width: 550px;
+      height: 550px;
+      z-index: 1;
+    }
+    .html_canvas {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border: 1px solid black;
+      width: 550px;
+      height: 550px;
+      background-color: transparent;
+      z-index: 4;
+    }
+    .resultados_despliegue {
+      position: relative;
+      display: inline-block;
+      top: 0px;
+      left: 0px;
+      border: 1px solid black;
+      margin-top: 10px;
+      width: 350px;
+      height: 150px;
+      overflow-y: auto;
+      z-index: 4;
+    }

@@ -1,0 +1,85 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/css/registro.css' %}">
+<!--<link rel="stylesheet" href="css/textos.css">-->
+<script src="{% static 'js/external/jquery/jquery.js' %}"></script>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+
+
+
+<title>Grafos</title>
+
+
+<script src="{% static 'js/graph.js' %}"></script>
+
+</head>
+<body>
+    <div class="container">
+      <div class="row col-md-12">
+        <h1>Matemáticas Discretas<br/>Pruebas</h1>
+      </div>
+        <form id="formulario" name="formulario">
+            <div class="form-group row">
+                <div class="row col-md-6">
+                    <div id="div_canvas" class="div_canvas">
+                      <canvas id="html_canvas" width="550" height="550" class="html_canvas"></canvas>
+                    </div>
+                </div>
+                <div class="col">
+                  <div>
+                    <div>
+                      <h3> De: </h3>
+                      <select class="form-control" name="de" id="de"></select>
+                    </div>
+                    <div>
+                      <h3> A: </h3>
+                      <select class="form-control" name="a" id="a"></select>
+                    </div>
+                    <div style="padding-top:10px;">
+                      <button type="button" class="btn btn-info" id="botonAgregarArista" onclick="agregarArista();">Agregar arista</button>
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input type="checkbox" id="newVertice">
+                          <label for="newVertice"> Agregar Vertice</label>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div>
+                      <legend style="margin-bottom: 0px;">Aristas:</legend>
+                      <h3 id="aristas" class="resultados_despliegue"></h3>
+                      <legend style="margin-bottom: 0px;">Resultados:</legend>
+                      <h3 id="resultados" class="resultados_despliegue"></h3>
+                      <br />
+                      <button type="button" class="btn btn-danger" onclick="restablecer();">Limpiar</button>
+
+                      <div class="actions"> <button type="button" class="btn btn-info coloreo">Coloreo</button>
+                        <button type="button" class="btn btn-info euler">Euler</button>
+</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+         </form>
+    </div>
+</body>
+</html>
+
+<script src="{% static 'js/ajax.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/grafo.css' %}">
