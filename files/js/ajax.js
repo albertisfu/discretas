@@ -103,8 +103,9 @@ $('.actions').on('click', ".euler", function()  {
                 //console.log(vertices[val][0]+"***"+vertices[val][1]);
                 //Pintamos el Camino y luego un sleep para hacerlo como animacion
                 setTimeout(function(){
-                  if (vertices[key[0]]==vertices[key[1]]) {
+                  if (vertices[key][0]==vertices[val][0]) {
                     //Repintamos Arcos
+                    console.log("Lazo");
                     context.beginPath();
                     context.arc(vertices[key][1]+5, vertices[key][0]+5,10,0,Math.PI*2,true);
                     context.strokeStyle = "red";
