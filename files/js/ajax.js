@@ -144,9 +144,20 @@ $('.actions').on('click', ".euler", function()  {
 $('.actions').on('click', ".hami", function()  {
 
       //Enviar lista de aristas del grafo sin simetrias, ejemplo:
-      
-      //var grafo = [{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'},{'6':'1'},{'6':'2'},{'6':'3'},{'6':'4'},{'6':'5'}];
-    
+      var edges=[]
+      for (var i = 0; i < arregloAristas.length; i++) {
+        var puntos = arregloAristas[i].split(",");
+        var a=puntos[0];
+        var b=puntos[1];
+        edges.push({[a]:b})
+      }
+      var verts=[]
+      for (var i = 0; i < vertices.length; i++) {
+        verts.push(i+"")
+      }
+
+      var grafo = {'vers':verts, 'edges':edges};
+      console.log(grafo);
       var grafo = {'vers':['0','1','2','3','4','5'], 'edges':[{'0':'1'},{'0':'2'},{'0':'4'},{'1':'3'},{'2':'5'},{'3':'4'},{'2':'4'},{'5':'4'}]};
 
       console.log(grafo);
@@ -197,6 +208,3 @@ $('.actions').on('click', ".hami", function()  {
 
     return false;
         });
-
-
-
