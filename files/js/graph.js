@@ -6,8 +6,17 @@
     var izquierda = 0;
     var CONSTANTE = 10;
     var color = '#FFFFFF';
+    var colores= new Array();
     var canvas;
     var context;
+    function sleep(milliseconds) {
+     var start = new Date().getTime();
+     for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+       break;
+      }
+     }
+    }
     function restablecer() {
         /*
         Coloreo
@@ -23,6 +32,7 @@
         arriba = 0;
         izquierda = 0;
         color = '#FFFFFF';
+        colores= new Array();
         //Borrar contenidos de trazos
         $('#aristas').html('');
         $('#resultados').html('');
@@ -93,6 +103,7 @@
     }
     $(document).ready(function() {
         //Coordenadas para dibujar
+
         $('#html_canvas').mousemove(function(e){
             var parentOffset = $(this).parent().offset();
             arriba = (e.pageY - parentOffset.top);
@@ -134,6 +145,9 @@
             $("#a").append(o);
             $("#vertice_" + verticeActual).css("background-color", color);
             verticeActual++;
+            var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+            colores.push(randomColor)
+            //console.log(randomColor);
           }
         });
         canvas = document.getElementById('html_canvas');

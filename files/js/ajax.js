@@ -3,12 +3,18 @@ $('.actions').on('click', ".coloreo", function()  {
 
 
       //Enviar lista de aristas del grafo sin simetrias, ejemplo:
-
-      var grafo = [{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'},{'6':'1'},{'6':'2'},{'6':'3'},{'6':'4'},{'6':'5'}];
-
+      var grafo = [];
+      for (var i = 0; i < arregloAristas.length; i++) {
+        var puntos = arregloAristas[i].split(",");
+        var a=puntos[0];
+        var b=puntos[1];
+        grafo.push({[a]:b})
+      }
+      //var grafo = [{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'},{'6':'1'},{'6':'2'},{'6':'3'},{'6':'4'},{'6':'5'}];
+      console.log(grafo);
       json_data = grafo;
 
-        //se mando a llamar con javascript 
+        //se mando a llamar con javascript
         $.ajax({
             url: '/coloreo/',
             type: 'post',
@@ -27,6 +33,8 @@ $('.actions').on('click', ".coloreo", function()  {
 
            //ejemplo de parsing
           $.each(data, function(key, val) {
+                //$("#vertice_" + idl).css("background-color", "#FFFFFF");
+                $("#vertice_"+key).css("background-color", colores[val])
                 console.log(key+ " *** " + val);
               });
 
@@ -44,12 +52,23 @@ $('.actions').on('click', ".euler", function()  {
 
 
       //Enviar lista de aristas del grafo sin simetrias, ejemplo:
-
-      var grafo = {'vers':['1','2','3','4','5'], 'edges':[{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'}]};
-
+      var edges=[]
+      for (var i = 0; i < arregloAristas.length; i++) {
+        var puntos = arregloAristas[i].split(",");
+        var a=puntos[0];
+        var b=puntos[1];
+        edges.push({[a]:b})
+      }
+      var verts=[]
+      for (var i = 0; i < vertices.length; i++) {
+        verts.push(i+"")
+      }
+      //console.log(verts);
+      //console.log(edges);
+      var grafo = {'vers':verts, 'edges':edges};
       json_data = grafo;
 
-        //se mando a llamar con javascript 
+        //se mando a llamar con javascript
         $.ajax({
             url: '/euler/',
             type: 'post',
@@ -68,20 +87,44 @@ $('.actions').on('click', ".euler", function()  {
             //ejemplo de parsing
            euler = data[0]
            console.log(euler)
-
+           $("#resultados").html("")
            ciclo = data[1]
            console.log(ciclo)
-
+           clearCanvas();
+           var cont=1
            //obtener valores de las aristas
            $.each(ciclo, function(i, obj) {
               //use obj.id and obj.name here, for example:
               $.each(obj, function(key, val) {
-                console.log(key+ " *** " + val);
+                //recorridoEuler.push(key,val)
+                //console.log(key+ " *** " + val);
+                $("#resultados").append(key+ " *** " + val +"<br>")
+                //console.log(vertices[key][0]+"***"+vertices[key][1]);
+                //console.log(vertices[val][0]+"***"+vertices[val][1]);
+                //Pintamos el Camino y luego un sleep para hacerlo como animacion
+                setTimeout(function(){
+                  if (vertices[key][0]==vertices[val][0]) {
+                    //Repintamos Arcos
+                    console.log("Lazo");
+                    context.beginPath();
+                    context.arc(vertices[key][1]+5, vertices[key][0]+5,10,0,Math.PI*2,true);
+                    context.strokeStyle = "red";
+                    context.stroke();
+                  }else {
+                    //Repintamos Aristas
+                    context.beginPath();
+                    context.moveTo(vertices[key][1], vertices[key][0]);
+                    context.lineTo(vertices[val][1], vertices[val][0]);
+                    context.strokeStyle = "red";
+                    context.stroke();
+                  }
+                },cont*1000);
+                cont++;
               });
 
             });
 
-         
+
 
           }
 
@@ -89,4 +132,3 @@ $('.actions').on('click', ".euler", function()  {
 
     return false;
         });
-
