@@ -91,6 +91,7 @@ $('.actions').on('click', ".euler", function()  {
            ciclo = data[1]
            console.log(ciclo)
            clearCanvas();
+           var cont=1
            //obtener valores de las aristas
            $.each(ciclo, function(i, obj) {
               //use obj.id and obj.name here, for example:
@@ -98,12 +99,27 @@ $('.actions').on('click', ".euler", function()  {
                 //recorridoEuler.push(key,val)
                 //console.log(key+ " *** " + val);
                 $("#resultados").append(key+ " *** " + val +"<br>")
-                console.log(vertices[key][0]+"***"+vertices[key][1]);
-                console.log(vertices[val][0]+"***"+vertices[val][1]);
+                //console.log(vertices[key][0]+"***"+vertices[key][1]);
+                //console.log(vertices[val][0]+"***"+vertices[val][1]);
                 //Pintamos el Camino y luego un sleep para hacerlo como animacion
-                setTimeout(dibujarRecorrido(key,val),1000);
+                setTimeout(function(){
+                  if (vertices[key[0]]==vertices[key[1]]) {
+                    //Repintamos Arcos
+                    context.beginPath();
+                    context.arc(vertices[key][1]+5, vertices[key][0]+5,10,0,Math.PI*2,true);
+                    context.strokeStyle = "red";
+                    context.stroke();
+                  }else {
+                    //Repintamos Aristas
+                    context.beginPath();
+                    context.moveTo(vertices[key][1], vertices[key][0]);
+                    context.lineTo(vertices[val][1], vertices[val][0]);
+                    context.strokeStyle = "red";
+                    context.stroke();
+                  }
+                },cont*1000);
+                cont++;
               });
-              setTimeout(sleep(100),2000);
 
             });
 

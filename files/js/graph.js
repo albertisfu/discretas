@@ -101,22 +101,6 @@
       }
       //console.log(vertice);
     }
-    function dibujarRecorrido(key,val){
-      if (vertices[key[0]]==vertices[key[1]]) {
-        //Repintamos Arcos
-        context.beginPath();
-        context.arc(vertices[key][1]+5, vertices[key][0]+5,10,0,Math.PI*2,true);
-        context.strokeStyle = "red";
-        context.stroke();
-      }else {
-        //Repintamos Aristas
-        context.beginPath();
-        context.moveTo(vertices[key][1], vertices[key][0]);
-        context.lineTo(vertices[val][1], vertices[val][0]);
-        context.strokeStyle = "red";
-        context.stroke();
-      }
-    }
     $(document).ready(function() {
         //Coordenadas para dibujar
 
