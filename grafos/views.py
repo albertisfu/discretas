@@ -739,7 +739,7 @@ def ajax_hamilton(request):
 			return camino
 
 
-	g1 = Graph(6) 
+	g1 = Graph(len(conjuntoA)) 
 	g1.graph = matriz
 
 

@@ -158,9 +158,9 @@ $('.actions').on('click', ".hami", function()  {
 
       var grafo = {'vers':verts, 'edges':edges};
       console.log(grafo);
-      var grafo = {'vers':['0','1','2','3','4','5'], 'edges':[{'0':'1'},{'0':'2'},{'0':'4'},{'1':'3'},{'2':'5'},{'3':'4'},{'2':'4'},{'5':'4'}]};
+      //var grafo = {'vers':['0','1','2','3','4','5'], 'edges':[{'0':'1'},{'0':'2'},{'0':'4'},{'1':'3'},{'2':'5'},{'3':'4'},{'2':'4'},{'5':'4'}]};
 
-      console.log(grafo);
+      //console.log(grafo);
       json_data = grafo;
 
         //se mando a llamar con javascript
