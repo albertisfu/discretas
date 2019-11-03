@@ -132,3 +132,71 @@ $('.actions').on('click', ".euler", function()  {
 
     return false;
         });
+
+
+
+
+
+
+
+
+
+$('.actions').on('click', ".hami", function()  {
+
+      //Enviar lista de aristas del grafo sin simetrias, ejemplo:
+      
+      //var grafo = [{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'},{'6':'1'},{'6':'2'},{'6':'3'},{'6':'4'},{'6':'5'}];
+    
+      var grafo = {'vers':['0','1','2','3','4','5'], 'edges':[{'0':'1'},{'0':'2'},{'0':'4'},{'1':'3'},{'2':'5'},{'3':'4'},{'2':'4'},{'5':'4'}]};
+
+      console.log(grafo);
+      json_data = grafo;
+
+        //se mando a llamar con javascript
+        $.ajax({
+            url: '/hami/',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(json_data),
+            success: function (data) {
+
+            //agregar li si no existe o actualizar li si existe
+          data = JSON.parse(data);
+
+          console.log('response');
+           console.log(data);
+
+
+        //Retorna si tiene camino o ciclo de euler y lista de aristas del camino en orden, ejemplo:
+        //[{"hami": true}, [{"0": 1}, {"1": 3}, {"3": 4}, {"4": 5}, {"5": 2}, {"2": 0}]]
+
+            //ejemplo de parsing
+           hami = data[0]
+           console.log(hami)
+
+           ciclo = data[1]
+           console.log(ciclo)
+
+           //obtener valores de las aristas
+           $.each(ciclo, function(i, obj) {
+              //use obj.id and obj.name here, for example:
+              $.each(obj, function(key, val) {
+                console.log(key+ " *** " + val);
+              });
+
+            });
+
+
+
+
+
+          }
+
+});
+
+    return false;
+        });
+
+
+

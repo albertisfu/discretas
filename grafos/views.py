@@ -574,3 +574,206 @@ def ajax_euler(request):
 		return response
 
 
+
+
+
+
+
+@csrf_exempt
+def ajax_hamilton(request):
+	data = json.loads(request.body)
+
+	rel = []
+
+	vers = data['vers'];
+	edges = data['edges'];
+
+
+	conjuntoA = []
+	for v in vers:
+		print(v)
+		conjuntoA.append(v);
+
+	for ele in edges:
+		#print(ele)
+		elemento = []
+		for ed in ele:
+			#print(ed)
+			value = ele[ed]
+			#print(value)
+
+			elemento.append(ed)
+			elemento.append(value)
+
+			rel.append(elemento)
+
+
+	#rel = [['0','1'], ['0','2'], ['0','4'], ['1','3'],['2','5'], ['3','4'],['2','4'], ['5','4']]
+
+	#rel = [['0','1'], ['0','2'], ['0','3'],['1','2'], ['1','3'], ['2','3']]
+
+	relacion = []
+	for el in rel:
+		relacion.append(el)
+
+		simetrico = []
+		simetrico.append(el[1])
+		simetrico.append(el[0])
+		relacion.append(simetrico)
+
+	#print('relacion aumentada ', relacion )
+
+	matriz = []
+
+	indexC = conjuntoA
+
+	for element in conjuntoA:
+		fila = []
+		for element2 in conjuntoA:
+			fila.append(0)
+		matriz.append(fila)
+
+
+	print(matriz)
+
+
+	for elemenr in relacion:
+		for indexlocal in indexC:
+			#print('indexc')
+			#print(indexC)
+			if elemenr[0] == indexlocal:
+				#print('element0')
+				#print(elemenr[0])
+				xindex = indexC.index(indexlocal)
+				#print('index x')
+				#print(xindex)
+
+		for indexlocal in indexC:
+			if elemenr[1] == indexlocal:
+				#print('element1')
+				#print(elemenr[1])
+				yindex = indexC.index(indexlocal)
+				#print('index y')
+				#print(yindex)
+
+
+		matriz[xindex][yindex] = 1
+
+	for fila in matriz:
+		print(fila)
+
+
+
+	class Graph(): 
+		def __init__(self, vertices): 
+			self.graph = [[0 for column in range(vertices)] 
+								for row in range(vertices)] 
+			self.V = vertices 
+
+		def isSafe(self, v, pos, path): 
+			if self.graph[ path[pos-1] ][v] == 0: 
+				return False
+
+		
+			for vertex in path: 
+				if vertex == v: 
+					return False
+
+			return True
+
+	
+		def hamCycleUtil(self, path, pos): 
+
+		
+			if pos == self.V: 
+		
+				if self.graph[ path[pos-1] ][ path[0] ] == 1: 
+					return True
+				else: 
+					return False
+
+
+			for v in range(1,self.V): 
+
+				if self.isSafe(v, pos, path) == True: 
+
+					path[pos] = v 
+
+					if self.hamCycleUtil(path, pos+1) == True: 
+						return True
+
+					path[pos] = -1
+
+			return False
+
+		def hamCycle(self): 
+			path = [-1] * self.V 
+
+
+			path[0] = 0
+
+			if self.hamCycleUtil(path,1) == False: 
+				print ("No tiene Hamilton")
+				return False
+
+			self.printSolution(path) 
+			return self.printSolution(path)
+
+		def printSolution(self, path): 
+			print("Ciclo o Camino Hamiltoniano")
+
+			#print(path)
+
+			camino = []
+			for idx, elem in enumerate(path):
+
+				thiselem = elem
+				nextelem = path[(idx + 1) % len(path)]
+
+				simetrico = []
+				simetrico.append(thiselem)
+				simetrico.append(nextelem)
+				camino.append(simetrico)
+				
+		
+			return camino
+
+
+	g1 = Graph(6) 
+	g1.graph = matriz
+
+
+	cam = g1.hamCycle(); 
+	print(cam)
+
+	response = []	
+	if cam == False:
+		
+		tipo = {'hami': False}
+		response.append(tipo)
+		response.append({''})
+
+	else:
+		ciclo = cam
+
+		listciclo = []
+		for cic in ciclo:
+			dic = {cic[0]:cic[1]}
+			print(dic)
+
+			listciclo.append(dic)
+
+
+		tipo = {'hami': True}
+		response.append(tipo)
+		response.append(listciclo)
+
+
+	if request.method == 'POST':
+
+		response = json.dumps(response,  ensure_ascii=False)
+		print(response)
+		return JsonResponse(response, safe=False)
+		return response
+
+

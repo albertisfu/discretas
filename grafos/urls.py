@@ -15,5 +15,10 @@ urlpatterns = [
 
     path('coloreo/', views.ajax_coloreo, name='ajax_coloreo'),
     path('euler/', views.ajax_euler, name='ajax_euler'),
+
+    
+
+    path('hami/', views.ajax_hamilton, name='ajax_hamilton'),
+
       
 ]
