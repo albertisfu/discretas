@@ -751,7 +751,7 @@ def ajax_hamilton(request):
 		
 		tipo = {'hami': False}
 		response.append(tipo)
-		response.append({''})
+		
 
 	else:
 		ciclo = cam
