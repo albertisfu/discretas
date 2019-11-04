@@ -17,6 +17,28 @@
       }
      }
     }
+
+    function exportar(){
+      var cadena='{"vers":[';
+      for (var i = 0; i < vertices.length; i++) {
+        if (i == vertices.length-1) {
+          cadena=cadena+'['+vertices[i][0]+','+vertices[i][1]+']'
+        }else {
+          cadena=cadena+'['+vertices[i][0]+','+vertices[i][1]+'],'
+        }
+      }
+      cadena=cadena+'], "edges":[';
+      for (var i = 0; i < arregloAristas.length; i++) {
+        console.log(i);
+        if (i == arregloAristas.length-1) {
+          cadena=cadena+'"'+arregloAristas[i]+'"'
+        }else {
+          cadena=cadena+'"'+arregloAristas[i]+'",'
+        }
+      }
+      cadena=cadena+']}';
+      return cadena;
+    }
     function restablecer() {
         /*
         Coloreo

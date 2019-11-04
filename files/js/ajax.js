@@ -36,6 +36,7 @@ $('.actions').on('click', ".coloreo", function()  {
                 //$("#vertice_" + idl).css("background-color", "#FFFFFF");
                 $("#vertice_"+key).css("background-color", colores[val])
                 console.log(key+ " *** " + val);
+                console.log('$("#vertice_"'+key+').css("background-color",'+colores[val]+')');
               });
 
           }
@@ -236,7 +237,7 @@ $('.actions').on('click', ".hami", function()  {
 $('.uploadForm').on('submit', function(event){
   event.preventDefault();
   console.log('upload file');
-  
+
  var formData = new FormData();
 formData.append('file', $('#uploadFile')[0].files[0]);
 
@@ -250,14 +251,46 @@ formData.append('file', $('#uploadFile')[0].files[0]);
     contentType: false,
     enctype: 'multipart/form-data',
     success: function(data){
-     
-     //retorna JSON del archivo decodificado. 
+
+     //retorna JSON del archivo decodificado.
+    restablecer()
     console.log(data);
+    arregloAristas=data.edges;
+    vertices=data.vers;
+    console.log(vertices.length);
+    vertices.forEach(function(pos) {
+      console.log(pos);
+      $('#div_canvas').append('<div id="vertice_' + verticeActual + '" class="vertice" style="top: ' + pos[0] + 'px; left: ' + pos[1] + 'px;">' + verticeActual + '</div>');
+      $('#vertice_' + verticeActual).draggable({
+        drag: function(e) {
+          //Rich Version
+          clearCanvas();
+          var parentOffset2 = $('#html_canvas').parent().offset();
+          arriba = (e.pageY - parentOffset2.top);
+          izquierda = (e.pageX - parentOffset2.left);
+          //console.log("Arriba: "+arriba +" Izquierda"+ izquierda);
+          var id=$(this).attr("id").split("_");
+          //console.log("Arriba: "+arriba +" Izquierda"+ izquierda);
+          vertices[id[1]]=[arriba, izquierda];
+          repintar();
+        }
+      });
+
+      //vertices.push(pos);
+      var o = new Option(verticeActual, verticeActual);
+      $(o).html(verticeActual);
+      $("#de").append(o);
+      o = new Option(verticeActual, verticeActual);
+      $(o).html(verticeActual);
+      $("#a").append(o);
+      $("#vertice_" + verticeActual).css("background-color", color);
+      verticeActual++;
+      var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+      colores.push(randomColor)
+    });
+    
+    repintar();
 
     }
   });
 });
-
-
-
-
