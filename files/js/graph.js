@@ -18,6 +18,18 @@
      }
     }
 
+
+
+    function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+
+
     function exportar(){
       var cadena='{"vers":[';
       for (var i = 0; i < vertices.length; i++) {
@@ -37,8 +49,15 @@
         }
       }
       cadena=cadena+']}';
-      return cadena;
+      console.log(cadena);
+
+      download(cadena, 'export.json', 'text/plain');
+
+
     }
+
+
+
     function restablecer() {
         /*
         Coloreo

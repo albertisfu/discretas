@@ -782,14 +782,10 @@ def ajax_upload(request):
 
 
 	if request.method == 'POST':
-
 		jsonfile = request.FILES['file']
-
 		json_data = jsonfile.read()
-
 		data_dict = json.loads(json_data)
 		print(data_dict)
-
 		return JsonResponse(data_dict, safe=False)
 
 
