@@ -45,3 +45,13 @@
       overflow-y: auto;
       z-index: 4;
     }
+
+
+    main.container {
+    margin-top: 80px;
+}
+
+.actions{
+    right: 30px;
+    position: absolute;
+}

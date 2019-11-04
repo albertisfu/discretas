@@ -22,6 +22,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 
 
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 
 <title>Grafos</title>
 
@@ -29,11 +34,69 @@
 <script src="{% static 'js/graph.js' %}"></script>
 
 </head>
-<body>
-    <div class="container">
-      <div class="row col-md-12">
-        <h1>Matemáticas Discretas<br/>Pruebas</h1>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Grafos Matemáticas Discretas</a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+          <form class="uploadForm" method="post" enctype="multipart/form-data">
+  <input type="file" id="uploadFile" class="btn btn-raised btn-info">
+  <input type="submit" class="button btn btn-raised btn-info" id="uploadButton" value="Subir">
+</form>
+
+
+      <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+
+                      <div class="actions"> <button type="button" class="btn btn-raised btn-success coloreo">Coloreo</button>
+                        <button type="button" class="btn btn-raised btn-success euler">Euler</button>
+
+                        <button type="button" class="btn btn-raised btn-success hami">Hamilton</button>
+
+                          <button type="button" class="btn btn-raised btn-warning" id="botonexportar" onclick="exportar();">Exportar</button>
+  
+</div>
+
       </div>
+    </nav>
+
+    <main role="main" class="container">
+
+
+
+<div class="row my-3 p-3 bg-white rounded box-shadow">
+          <div class="col-md-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="" id="newVertice">
+                 <div class="btn btn-raised btn-primary">Agregar Vertice</div>
+              </label>
+            </div>     
+           </div>
+
+            <div class="col-md-3">
+                     <label> De: </label>
+                      <select class="form-control" name="de" id="de"></select>
+            </div>            
+             <div class="col-md-3">
+                      <label> A: </label>
+                      <select class="form-control" name="a" id="a"></select>
+              </div>
+              <div class="col-md-3" style="padding-top:10px;">
+                      <button type="button" class="btn btn-raised btn-info" id="botonAgregarArista" onclick="agregarArista();">Agregar arista</button>
+              </div>
+
+
+  </div>
+
+
+
+
+
+
         <form id="formulario" name="formulario">
             <div class="form-group row">
                 <div class="row col-md-6">
@@ -43,55 +106,21 @@
                 </div>
                 <div class="col">
                   <div>
-                    <div>
-                      <h3> De: </h3>
-                      <select class="form-control" name="de" id="de"></select>
-                    </div>
-                    <div>
-                      <h3> A: </h3>
-                      <select class="form-control" name="a" id="a"></select>
-                    </div>
-                    <div style="padding-top:10px;">
-                      <button type="button" class="btn btn-info" id="botonAgregarArista" onclick="agregarArista();">Agregar arista</button>
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <input type="checkbox" id="newVertice">
-                          <label for="newVertice"> Agregar Vertice</label>
-                        </div>
-                      </div>
-
-                    </div>
+ 
                     <div>
                       <legend style="margin-bottom: 0px;">Aristas:</legend>
                       <h3 id="aristas" class="resultados_despliegue"></h3>
                       <legend style="margin-bottom: 0px;">Resultados:</legend>
                       <h3 id="resultados" class="resultados_despliegue"></h3>
                       <br />
-                      <button type="button" class="btn btn-danger" onclick="restablecer();">Limpiar</button>
-
-                      <div class="actions"> <button type="button" class="btn btn-info coloreo">Coloreo</button>
-                        <button type="button" class="btn btn-info euler">Euler</button>
-
-                        <button type="button" class="btn btn-info hami">Hamilton</button>
-
-                          <button type="button" class="btn btn-info" id="botonexportar" onclick="exportar();">Exportar</button>
-
-  
-</div>
+                      <button type="button" class="btn btn-raised btn-danger" onclick="restablecer();">Limpiar</button>
                     </div>
                   </div>
                 </div>
             </div>
          </form>
 
-
-          <form class="uploadForm" method="post" enctype="multipart/form-data">
-  <input type="file" id="uploadFile">
-  <input type="submit" class="button" id="uploadButton" value="Upload">
-</form>
-
-
-    </div>
+    </main>
 </body>
 </html>
 

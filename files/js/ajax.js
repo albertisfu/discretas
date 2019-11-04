@@ -294,3 +294,21 @@ formData.append('file', $('#uploadFile')[0].files[0]);
     }
   });
 });
+
+
+
+$(document).ready(function() {
+    $('.vertice').click(function(e) {  
+      alert(1);
+      var id = $(this).attr('id');
+  console.log(id);
+
+    });
+});
+
+
+
+
+
+
+
