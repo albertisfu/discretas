@@ -61,7 +61,7 @@
       //Validar si no existe ya
       if ( arregloAristas.indexOf(de + "," + a) == -1 && arregloAristas.indexOf(a + "," + de) == -1) {
         //No existe, dibujar arista
-        if (vertices[de][1]==vertices[a][1]) {
+        if (vertices[de][1]==vertices[a][1] && vertices[de][0]==vertices[a][0]) {
           //Dibujamos Lazos
           context.beginPath();
           context.arc(vertices[de][1]+15, vertices[de][0]+15,10,0,Math.PI*2,true);
@@ -85,7 +85,7 @@
       //Repinta las aristas existentes despues de mover un nodo
       for (var i = 0; i < arregloAristas.length; i++) {
         var datos=arregloAristas[i].split(",");
-        if (vertices[datos[0]][1]==vertices[datos[1]][1]) {
+        if (vertices[datos[0]][1]==vertices[datos[1]][1] && vertices[datos[0]][0]==vertices[datos[1]][0]) {
           //Repintamos Arcos
           context.beginPath();
           context.arc(vertices[datos[0]][1]+5,  vertices[datos[0]][0]+5,10,0,Math.PI*2,true);

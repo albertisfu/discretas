@@ -103,7 +103,7 @@ $('.actions').on('click', ".euler", function()  {
                 //console.log(vertices[val][0]+"***"+vertices[val][1]);
                 //Pintamos el Camino y luego un sleep para hacerlo como animacion
                 setTimeout(function(){
-                  if (vertices[key][0]==vertices[val][0]) {
+                  if (vertices[key][0]==vertices[val][0] && vertices[key][1]==vertices[val][1]) {
                     //Repintamos Arcos
                     console.log("Lazo");
                     context.beginPath();
@@ -157,10 +157,10 @@ $('.actions').on('click', ".hami", function()  {
       }
 
       var grafo = {'vers':verts, 'edges':edges};
-      console.log(grafo);
+      //console.log(grafo);
       //var grafo = {'vers':['0','1','2','3','4','5'], 'edges':[{'0':'1'},{'0':'2'},{'0':'4'},{'1':'3'},{'2':'5'},{'3':'4'},{'2':'4'},{'5':'4'}]};
 
-      //console.log(grafo);
+      console.log(grafo);
       json_data = grafo;
 
         //se mando a llamar con javascript
@@ -185,15 +185,36 @@ $('.actions').on('click', ".hami", function()  {
             //ejemplo de parsing
            hami = data[0]
            console.log(hami)
+           $("#resultados").html("")
+           var cont=1;
 
            ciclo = data[1]
            console.log(ciclo)
-
+           clearCanvas();
            //obtener valores de las aristas
            $.each(ciclo, function(i, obj) {
               //use obj.id and obj.name here, for example:
               $.each(obj, function(key, val) {
-                console.log(key+ " *** " + val);
+                //console.log(key+ " *** " + val);
+                $("#resultados").append(key+ " *** " + val +"<br>")
+                setTimeout(function(){
+                  if (vertices[key][0]==vertices[val][0] && vertices[key][1]==vertices[val][1]) {
+                    //Repintamos Arcos
+                    console.log("Lazo");
+                    context.beginPath();
+                    context.arc(vertices[key][1]+5, vertices[key][0]+5,10,0,Math.PI*2,true);
+                    context.strokeStyle = "red";
+                    context.stroke();
+                  }else {
+                    //Repintamos Aristas
+                    context.beginPath();
+                    context.moveTo(vertices[key][1], vertices[key][0]);
+                    context.lineTo(vertices[val][1], vertices[val][0]);
+                    context.strokeStyle = "red";
+                    context.stroke();
+                  }
+                },cont*1000);
+                cont++;
               });
 
             });
