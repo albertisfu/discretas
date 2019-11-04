@@ -208,3 +208,35 @@ $('.actions').on('click', ".hami", function()  {
 
     return false;
         });
+
+
+
+
+$('.uploadForm').on('submit', function(event){
+  event.preventDefault();
+  console.log('upload file');
+  
+ var formData = new FormData();
+formData.append('file', $('#uploadFile')[0].files[0]);
+
+  $.ajax({
+    url: "/uploadfile/",
+    type: "POST",
+    data: formData,
+    async: true,
+    cache: false,
+    processData: false,
+    contentType: false,
+    enctype: 'multipart/form-data',
+    success: function(data){
+     
+     //retorna JSON del archivo decodificado. 
+    console.log(data);
+
+    }
+  });
+});
+
+
+
+

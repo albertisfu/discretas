@@ -20,5 +20,7 @@ urlpatterns = [
 
     path('hami/', views.ajax_hamilton, name='ajax_hamilton'),
 
+    path('uploadfile/', views.ajax_upload, name='ajax_upload'),
+
       
 ]
