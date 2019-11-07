@@ -13,8 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/registro.css' %}">
-<!--<link rel="stylesheet" href="css/textos.css">-->
+<!--<link rel="stylesheet" href="{% static 'css/css/registro.css' %}">
+<link rel="stylesheet" href="css/textos.css">-->
 <script src="{% static 'js/external/jquery/jquery.js' %}"></script>
 <script src="{% static 'js/jquery-ui.js' %}"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -57,7 +57,7 @@
                         <button type="button" class="btn btn-raised btn-success hami">Hamilton</button>
 
                           <button type="button" class="btn btn-raised btn-warning" id="botonexportar" onclick="exportar();">Exportar</button>
-  
+
 </div>
 
       </div>
@@ -74,19 +74,23 @@
                 <input type="checkbox" value="" id="newVertice">
                  <div class="btn btn-raised btn-primary">Agregar Vertice</div>
               </label>
-            </div>     
+              <label>
+                <input type="checkbox" value="" id="newArista">
+                 <div class="btn btn-raised btn-primary">Agregar Arista</div>
+              </label>
+            </div>
            </div>
 
             <div class="col-md-3">
-                     <label> De: </label>
-                      <select class="form-control" name="de" id="de"></select>
-            </div>            
+                     <label> Vertice Origen </label>
+                      <select class="form-control" name="de" id="de" disabled></select>
+            </div>
              <div class="col-md-3">
                       <label> A: </label>
-                      <select class="form-control" name="a" id="a"></select>
+                      <select class="form-control" name="a" id="a" disabled></select>
               </div>
               <div class="col-md-3" style="padding-top:10px;">
-                      <button type="button" class="btn btn-raised btn-info" id="botonAgregarArista" onclick="agregarArista();">Agregar arista</button>
+                      <!--<button type="button" class="btn btn-raised btn-info" id="botonAgregarArista" onclick="agregarArista();">Agregar arista</button>-->
               </div>
 
 
@@ -106,7 +110,7 @@
                 </div>
                 <div class="col">
                   <div>
- 
+
                     <div>
                       <legend style="margin-bottom: 0px;">Aristas:</legend>
                       <h3 id="aristas" class="resultados_despliegue"></h3>
