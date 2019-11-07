@@ -9,6 +9,7 @@
     var colores= new Array();
     var canvas;
     var context;
+    var origen; var destino;
     function sleep(milliseconds) {
      var start = new Date().getTime();
      for (var i = 0; i < 1e7; i++) {
@@ -59,9 +60,6 @@
 
 
     function restablecer() {
-        /*
-        Coloreo
-        */
         //Remover vértices
         for ( i = 0; i < verticeActual ; i++ ) {
           $("#vertice_" + i).remove();
@@ -74,6 +72,8 @@
         izquierda = 0;
         color = '#FFFFFF';
         colores= new Array();
+        origen=null;
+        destino=null;
         //Borrar contenidos de trazos
         $('#aristas').html('');
         $('#resultados').html('');
@@ -144,7 +144,23 @@
     }
     $(document).ready(function() {
         //Coordenadas para dibujar
-
+        $(document).keypress(function(event){
+          if (event.which  == 97 ) {
+            //alert("a")
+            if ($("#newArista").is(":checked")) {
+              $("#newArista").prop("checked",false);
+            }else {
+              $("#newArista").prop("checked",true);
+            }
+          }
+          if (event.which  == 118) {
+            if ($("#newVertice").is(":checked")) {
+              $("#newVertice").prop("checked",false);
+            }else {
+              $("#newVertice").prop("checked",true);
+            }
+          }
+        })
         $('#html_canvas').mousemove(function(e){
             var parentOffset = $(this).parent().offset();
             arriba = (e.pageY - parentOffset.top);
@@ -176,6 +192,26 @@
                 //repintar();
               }
             });
+            $("#vertice_"+verticeActual).dblclick(function(){
+              var id=$(this).attr("id").split("_");
+              id=id[1];
+              origen=id;
+              var de = $('select[name=de]').val(id);
+            });
+            $("#vertice_"+verticeActual).click(function(){
+              if (document.getElementById("newArista").checked) {
+                var id=$(this).attr("id").split("_");
+                if (origen!=null) {
+                  id=id[1];
+                  destino=id;
+                  agregarArista2(origen,destino);
+                  var a = $('select[name=a]').val(id);
+                }else {
+                  alert("Selecione un vertice origen (Doble click en un vertice sin la opcion agregar arista)")
+                }
+              }
+
+            });
 
             vertices.push([arriba, izquierda]);
             var o = new Option(verticeActual, verticeActual);
@@ -195,5 +231,30 @@
         context = canvas.getContext('2d');
     });
 
-
-
+    function agregarArista2(origen,destino) {
+      //Vértices
+      var de = origen;
+      var a = destino;
+      //Validar si no existe ya
+      if ( arregloAristas.indexOf(de + "," + a) == -1 && arregloAristas.indexOf(a + "," + de) == -1) {
+        //No existe, dibujar arista
+        if (vertices[de][1]==vertices[a][1] && vertices[de][0]==vertices[a][0]) {
+          //Dibujamos Lazos
+          context.beginPath();
+          context.arc(vertices[de][1]+15, vertices[de][0]+15,10,0,Math.PI*2,true);
+          context.stroke();
+        }else {
+          //Dibujamos Aristas
+          context.beginPath();
+          context.moveTo(vertices[de][1], vertices[de][0]);
+          context.lineTo(vertices[a][1], vertices[a][0]);
+          context.stroke();
+        }
+        //Agregar a arreglo
+        arregloAristas.push(de + "," + a);
+        $('#aristas').append('(' + de + ',' + a + ')<br />');
+      } else {
+        //Ya existe
+        alert('No se pueden duplicar aristas... O tener simetria');
+      }
+    }
