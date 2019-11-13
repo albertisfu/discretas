@@ -623,127 +623,342 @@ def ajax_hamilton(request):
 
 	#print('relacion aumentada ', relacion )
 
-	matriz = []
 
-	indexC = conjuntoA
-
-	for element in conjuntoA:
-		fila = []
-		for element2 in conjuntoA:
-			fila.append(0)
-		matriz.append(fila)
-
-
-	print(matriz)
-
-
-	for elemenr in relacion:
-		for indexlocal in indexC:
-			#print('indexc')
-			#print(indexC)
-			if elemenr[0] == indexlocal:
-				#print('element0')
-				#print(elemenr[0])
-				xindex = indexC.index(indexlocal)
-				#print('index x')
-				#print(xindex)
-
-		for indexlocal in indexC:
-			if elemenr[1] == indexlocal:
-				#print('element1')
-				#print(elemenr[1])
-				yindex = indexC.index(indexlocal)
-				#print('index y')
-				#print(yindex)
+	def hamiltoniano(): 
+		impar = 0
+		countedge = {}
+		for ele in conjuntoA:
+			
+			for rel in relacion:
+				if ele==rel[0]:
+					if ele in countedge:
+						countedge[ele] += 1
+					else:
+						countedge[ele] = 1
 
 
-		matriz[xindex][yindex] = 1
-
-	for fila in matriz:
-		print(fila)
-
-
-
-	class Graph(): 
-		def __init__(self, vertices): 
-			self.graph = [[0 for column in range(vertices)] 
-								for row in range(vertices)] 
-			self.V = vertices 
-
-		def isSafe(self, v, pos, path): 
-			if self.graph[ path[pos-1] ][v] == 0: 
-				return False
+				if ele==rel[1]:
+					if ele in countedge:
+						countedge[ele] += 1
+					else:
+						countedge[ele] = 1
 
 		
-			for vertex in path: 
-				if vertex == v: 
-					return False
 
-			return True
+		print('grados')
+		print(countedge)
 
-	
-		def hamCycleUtil(self, path, pos): 
+
+
+		def aristasLocal(vertice, relacion):
+			relgrado = []
+			for rel in relacion:
+				if vertice==rel[0]:
+					relgrado.append(rel)
+				if vertice==rel[1]:
+					relgrado.append(rel)
+
+			return relgrado
+
+
+
+		def nexthamilton(Grelation, currentver, arista, camino, pendiente, caminos):
+
+			if arista == 0:
+				pass
+			else:
+
+
+				relacionlocal = aristasLocal(currentver, Grelation)
+				print('current ver init ', currentver)
+				print('relacion local')
+				print(relacionlocal) 
+				print('caminio init ',  camino)
+
+
+				verticeslocal1 = []
+				for arista in aristasLocal(currentver, Grelation): #iterar en la relacion de aristas locales
+					if arista[0]==currentver:   #checar cual es el siguiente vertice
+						nextver = arista[1]
+					else:
+						nextver = arista[0]
+
+					verticeslocal1.append(nextver)
+
+
+				visitados = True
+				print('vertices local', verticeslocal1)
+				for vertil in verticeslocal1:
+					if vertil not in camino:
+						print('vertice; ', vertil, ' visitado false')
+						visitados = False
+
+
+				print('**pendiente ', pendiente)
+				print('** len pendeinte', len(pendiente))
+
+
+				print('***visitados, ', visitados)
+				if visitados == True and len(pendiente) == 0:
+					print('*append camino ciclo')
+
+					caminos.append(camino)
+
+				
+				#si la relacion local del vertice actual tiene mas de una arista
+				if len(aristasLocal(currentver, Grelation)) >= 1:
+
+					for arista in aristasLocal(currentver, Grelation): #iterar en la relacion de aristas locales
+						print('-----------------')
+						print('arista ', arista )
+						print('currentver ', currentver)
+
+						if arista[0]==currentver:   #checar cual es el siguiente vertice
+							nextver = arista[1]
+						else:
+							nextver = arista[0]
+						print('nextver ', nextver)
+
+
+						if nextver in camino:
+							print('ignore arista')
+
+							verticeslocal = []
+
+							for arista in aristasLocal(currentver, Grelation): #iterar en la relacion de aristas locales
+								if arista[0]==currentver:   #checar cual es el siguiente vertice
+									nextver = arista[1]
+								else:
+									nextver = arista[0]
+
+								verticeslocal.append(nextver)
+
+							visitados = True
+							print('vertices local', verticeslocal)
+							for vertil in verticeslocal:
+								if vertil not in camino:
+									print('vertice; ', vertil, ' visitado')
+									visitados = False
+
+
+							if visitados == True and len(pendiente) >0:
+
+								caminos.append(camino)
+
+
+
+
+
+								#si ya se visitaron todos los nodos, ver caminos pendientes
+								#funcion, crear camino alterno en base a pendientes.
+
+								#sacar ultimo elemento de pendiente
+								#recrear camino iniciando del key de pendiente sacado y el camino resultante append en array de Caminos
+
+								lastver = list(pendiente.keys())[-1]
+
+								print('*last_ver ', lastver)
+
+								listapend = pendiente[lastver]
+
+								lastarista = listapend[-1]
+
+
+								print('*last_arista ', lastarista)
+
+
+								# declaring elements till which elements required 
+								N = lastver
+
+								# Get elements till particular element in list 
+								# using index() + list slicing 
+								temp = camino.index(N) 
+								res = camino[:temp+1] 
+
+								nextcamino = res
+
+								print('next camino, ', nextcamino)
+
+								if lastarista[0]==lastver:   #checar cual es el siguiente vertice
+									nextnode = lastarista[1]
+								else:
+									nextnode = lastarista[0]
+
+								nextcamino.append(nextnode)
+
+								print('next camino update', nextcamino)
+
+								updatependiente = pendiente
+
+								updatependiente[lastver].remove(lastarista)
+
+								if len(updatependiente[lastver]) == 0:
+									del updatependiente[lastver]
+
+								print('update pendientes ', updatependiente)
+
+
+								
+								nexthamilton(Grelation, nextnode, lastarista, nextcamino, updatependiente, caminos)
+
+							#ignorar vertice ya se encuentra en el camino
+						else:
+							#agregar vertice a camino y volver a llamar funcion
+							camino.append(nextver)
+							#si existian mas de 2 opciones de aristas en ese vertice
+
+							#crear lista de pendientes
+							if len(aristasLocal(currentver, Grelation)) > 1:
+								localrel = relacionlocal[:]
+								localrel.remove(arista)
+
+								print('localrel ', localrel)
+
+								copialocalrel = localrel[:]
+
+								for aris in localrel:
+									print('init aris, ', aris)
+									if aris[0]==currentver:   #checar cual es el siguiente vertice
+										nextnode = aris[1]
+									else:
+										nextnode = aris[0]
+
+									print('next node, ', nextnode)
+
+									if nextnode in camino:
+										print('nextnode in camino ', aris)
+										copialocalrel.remove(aris)
+
+
+								
+								if len(copialocalrel) > 0:		
+									pendiente[currentver]=copialocalrel
+
+
+
+								print('pendiente rel, ', pendiente)
+							nexthamilton(Grelation, nextver, arista, camino, pendiente, caminos)
+
+							break
 
 		
-			if pos == self.V: 
-		
-				if self.graph[ path[pos-1] ][ path[0] ] == 1: 
-					return True
-				else: 
-					return False
+				#print('camino last', camino)
 
 
-			for v in range(1,self.V): 
+					
 
-				if self.isSafe(v, pos, path) == True: 
 
-					path[pos] = v 
 
-					if self.hamCycleUtil(path, pos+1) == True: 
-						return True
 
-					path[pos] = -1
 
+
+
+		def hamilton(Grelation, Vertice, camino, caminos):
+			for ver in Grelation:
+
+				if ver[0] ==  Vertice or ver[1] ==  Vertice:
+
+					if ver[0]==Vertice:
+						currentver = ver[0]
+					else:
+						currentver = ver[1]
+
+					print('Vertice inicial: ', currentver)
+
+					pendiente={}
+					camino.append(currentver)
+					
+					nexthamilton(Grelation, Vertice,ver, camino, pendiente, caminos)
+
+					break
+
+
+		NodeMinDeg = min(countedge.items(), key=operator.itemgetter(1))[0]
+		print(NodeMinDeg)
+
+
+		camino=[]
+		caminos = []
+
+		hamilton(relacion, NodeMinDeg, camino, caminos)
+
+		#print('camino last ', camino)
+		print('caminos la ', caminos)
+
+		relint = []
+		for elem in conjuntoA:
+			relint.append(int(elem))
+
+		relint.sort()
+
+		camexist = False
+		for camino in caminos:
+
+			first = camino[0]
+			last = camino[-1]
+
+			elemento = [first, last]
+			elemento2 = [last, first]
+
+			camint = []
+			for cam in camino:
+				camint.append(int(cam))
+			camint.sort()
+
+			#print('camint ',  camint)
+			#print('relint, ',  relint)
+
+
+			if elemento in relacion or elemento2 in relacion:
+				if camint == relint:
+					camexist = True
+					print("es un ciclo, ", camino)
+					return camino
+
+			else:
+			
+				if camint == relint:
+					print('ES un camino ', camino)
+					camexist = True
+					return camino
+
+
+
+		if camexist == False:
+			print('no hay camino')
 			return False
 
-		def hamCycle(self): 
-			path = [-1] * self.V 
 
 
-			path[0] = 0
 
-			if self.hamCycleUtil(path,1) == False: 
-				print ("No tiene Hamilton")
-				return False
+	
 
-			self.printSolution(path) 
-			return self.printSolution(path)
+	hamiltoncamino = hamiltoniano()
 
-		def printSolution(self, path): 
-			print("Ciclo o Camino Hamiltoniano")
+	camino2 = []
+	for idx, elem in enumerate(hamiltoncamino):
 
-			#print(path)
+		thiselem = elem
+		nextelem = hamiltoncamino[(idx + 1) % len(hamiltoncamino)]
 
-			camino = []
-			for idx, elem in enumerate(path):
+		simetrico = []
+		simetrico.append(thiselem)
+		simetrico.append(nextelem)
 
-				thiselem = elem
-				nextelem = path[(idx + 1) % len(path)]
+		first = simetrico[0]
+		last = simetrico[-1]
 
-				simetrico = []
-				simetrico.append(thiselem)
-				simetrico.append(nextelem)
-				camino.append(simetrico)
-				
-		
-			return camino
+		elemento = [first, last]
+		elemento2 = [last, first]
 
+		if elemento in relacion or elemento2 in relacion:
+			camino2.append(simetrico)
 
-	g1 = Graph(len(conjuntoA)) 
-	g1.graph = matriz
+	print('first camino', hamiltoncamino)
+	print('camino 2 ver', camino2)
 
 
-	cam = g1.hamCycle(); 
+	cam = camino2; 
 	print(cam)
 
 	response = []	
@@ -754,6 +969,8 @@ def ajax_hamilton(request):
 		
 
 	else:
+
+		print('ciclo ham', cam)
 		ciclo = cam
 
 		listciclo = []
@@ -765,6 +982,8 @@ def ajax_hamilton(request):
 
 
 		tipo = {'hami': True}
+
+		print('list ciclo, ', listciclo)
 		response.append(tipo)
 		response.append(listciclo)
 
