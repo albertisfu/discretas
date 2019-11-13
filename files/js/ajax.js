@@ -256,8 +256,13 @@ formData.append('file', $('#uploadFile')[0].files[0]);
     restablecer()
     console.log(data);
     arregloAristas=data.edges;
+    arregloAristas.forEach(function (pos){
+      datos=pos.split(",");
+      $('#aristas').append('(' + datos[0] + ',' + datos[1] + ')<br />');
+    })
     vertices=data.vers;
     console.log(vertices.length);
+    verticeActual=0;
     vertices.forEach(function(pos) {
       console.log(pos);
       $('#div_canvas').append('<div id="vertice_' + verticeActual + '" class="vertice" style="top: ' + pos[0] + 'px; left: ' + pos[1] + 'px;">' + verticeActual + '</div>');
@@ -274,6 +279,26 @@ formData.append('file', $('#uploadFile')[0].files[0]);
           vertices[id[1]]=[arriba, izquierda];
           repintar();
         }
+
+      });
+      $("#vertice_"+verticeActual).dblclick(function(){
+        var id=$(this).attr("id").split("_");
+        id=id[1];
+        origen=id;
+        var de = $('select[name=de]').val(id);
+      });
+      $("#vertice_"+verticeActual).click(function(){
+        if (document.getElementById("newArista").checked) {
+          var id=$(this).attr("id").split("_");
+          if (origen!=null) {
+            id=id[1];
+            destino=id;
+            agregarArista2(origen,destino);
+            var a = $('select[name=a]').val(id);
+          }else {
+            alert("Selecione un vertice origen (Doble click en un vertice sin la opcion agregar arista)")
+          }
+        }
       });
 
       //vertices.push(pos);
@@ -288,7 +313,7 @@ formData.append('file', $('#uploadFile')[0].files[0]);
       var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
       colores.push(randomColor)
     });
-    
+
     repintar();
 
     }
@@ -298,17 +323,10 @@ formData.append('file', $('#uploadFile')[0].files[0]);
 
 
 $(document).ready(function() {
-    $('.vertice').click(function(e) {  
+    $('.vertice').click(function(e) {
       alert(1);
       var id = $(this).attr('id');
   console.log(id);
 
     });
 });
-
-
-
-
-
-
-
