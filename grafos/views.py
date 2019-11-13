@@ -892,6 +892,7 @@ def ajax_hamilton(request):
 		relint.sort()
 
 		camexist = False
+		cicloexist = False
 		for camino in caminos:
 
 			first = camino[0]
@@ -913,20 +914,30 @@ def ajax_hamilton(request):
 				if camint == relint:
 					camexist = True
 					print("es un ciclo, ", camino)
-					return camino
+					cicloexist = True
+					ciclo = camino
+					
 
 			else:
 			
 				if camint == relint:
 					print('ES un camino ', camino)
 					camexist = True
-					return camino
+					path = camino
+					
 
 
 
 		if camexist == False:
 			print('no hay camino')
 			return False
+
+		else:
+			if cicloexist == True:
+				return ciclo
+
+			else:
+				return path
 
 
 
@@ -983,7 +994,7 @@ def ajax_hamilton(request):
 
 		tipo = {'hami': True}
 
-		print('list ciclo, ', listciclo)
+		print('list camino o ciclo, ', listciclo)
 		response.append(tipo)
 		response.append(listciclo)
 
