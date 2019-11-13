@@ -522,6 +522,7 @@ def ajax_euler(request):
 		print('Euleriano, tiene ciclo')
 		print(cicloeuler(relacion))
 		tipo = {'euler': True}
+		typo = {'tipo': 'Ciclo'}
 		ciclo = cicloeuler(relacion)
 
 		listciclo = []
@@ -532,6 +533,7 @@ def ajax_euler(request):
 			listciclo.append(dic)
 
 		response.append(tipo)
+		response.append(typo)
 		response.append(listciclo)
 
 
@@ -542,6 +544,7 @@ def ajax_euler(request):
 		print(caminoeuler(relacion))
 
 		tipo = {'euler': True}
+		typo = {'tipo': 'Camino'}
 		ciclo = caminoeuler(relacion)
 
 		listciclo = []
@@ -553,12 +556,14 @@ def ajax_euler(request):
 
 
 		response.append(tipo)
+		response.append(typo)
 		response.append(listciclo)
 
 
 	elif impar >2:
 		print('No euleriano')
 		tipo = {'euler': False}
+		typo = {'tipo': 'Ninguno'}
 		response.append(tipo)
 		
 
@@ -845,12 +850,6 @@ def ajax_hamilton(request):
 				#print('camino last', camino)
 
 
-					
-
-
-
-
-
 
 
 		def hamilton(Grelation, Vertice, camino, caminos):
@@ -930,21 +929,21 @@ def ajax_hamilton(request):
 
 		if camexist == False:
 			print('no hay camino')
-			return False
+			typo = {'tipo': 'Ninguno'}
+			return False, typo
 
 		else:
 			if cicloexist == True:
-				return ciclo
+				typo = {'tipo': 'Ciclo'}
+				return ciclo, typo
 
 			else:
-				return path
+				typo = {'tipo': 'Camino'}
+				return path, typo
 
 
 
-
-	
-
-	hamiltoncamino = hamiltoniano()
+	hamiltoncamino, typo = hamiltoniano()
 
 	camino2 = []
 
@@ -984,6 +983,8 @@ def ajax_hamilton(request):
 		
 		tipo = {'hami': False}
 		response.append(tipo)
+		response.append(typo)
+		
 		
 
 	else:
@@ -1003,7 +1004,9 @@ def ajax_hamilton(request):
 
 		print('list camino o ciclo, ', listciclo)
 		response.append(tipo)
+		response.append(typo)
 		response.append(listciclo)
+		
 
 
 	if request.method == 'POST':

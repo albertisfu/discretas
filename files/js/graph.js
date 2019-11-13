@@ -222,7 +222,8 @@
             $("#a").append(o);
             $("#vertice_" + verticeActual).css("background-color", color);
             verticeActual++;
-            var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+            var p=Math.round, r=Math.random, s=255;
+            var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*255)).toString(16);});
             colores.push(randomColor)
             //console.log(randomColor);
           }

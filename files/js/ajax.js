@@ -32,14 +32,22 @@ $('.actions').on('click', ".coloreo", function()  {
            //{"5": 0, "6": 1, "4": 2, "3": 3, "1": 4, "2": 5}
 
            //ejemplo de parsing
+           var max=0;
           $.each(data, function(key, val) {
                 //$("#vertice_" + idl).css("background-color", "#FFFFFF");
                 $("#vertice_"+key).css("background-color", colores[val])
                 console.log(key+ " *** " + val);
                 console.log('$("#vertice_"'+key+').css("background-color",'+colores[val]+')');
+                if (max<=val) {
+                  max=val;
+                };
+                $("#resultados").html("")
+                $("#resultados").append("Chi de G: "+(max+1)+"<br>")
+
               });
 
           }
+          
 
 });
 
@@ -90,8 +98,11 @@ $('.actions').on('click', ".euler", function()  {
            console.log(euler)
 
            if(euler['euler']==false){alert('No hay camino de euler')}
-           $("#resultados").html("")
-           ciclo = data[1]
+
+          console.log(data[1])
+          $("#resultados").html("")
+          $("#resultados").append(data[1]["tipo"] +" de Euler<br>")
+           ciclo = data[2]
            console.log(ciclo)
            clearCanvas();
            var cont=1
@@ -101,6 +112,7 @@ $('.actions').on('click', ".euler", function()  {
               $.each(obj, function(key, val) {
                 //recorridoEuler.push(key,val)
                 //console.log(key+ " *** " + val);
+
                 $("#resultados").append(key+ " *** " + val +"<br>")
                 //console.log(vertices[key][0]+"***"+vertices[key][1]);
                 //console.log(vertices[val][0]+"***"+vertices[val][1]);
@@ -188,14 +200,17 @@ $('.actions').on('click', ".hami", function()  {
             //ejemplo de parsing
            hami = data[0]
            console.log(hami)
+           console.log(data[1])
 
            if(hami['hami']==false){alert('No hay camino de Hamilton')}
 
 
            $("#resultados").html("")
+          $("#resultados").append(data[1]["tipo"] +" de Hamilton<br>")
+
            var cont=1;
 
-           ciclo = data[1]
+           ciclo = data[2]
            console.log(ciclo)
            clearCanvas();
            //obtener valores de las aristas
@@ -316,7 +331,7 @@ formData.append('file', $('#uploadFile')[0].files[0]);
       $("#a").append(o);
       $("#vertice_" + verticeActual).css("background-color", color);
       verticeActual++;
-      var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+      var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*255)).toString(16);});
       colores.push(randomColor)
     });
 
