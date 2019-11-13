@@ -560,7 +560,7 @@ def ajax_euler(request):
 		print('No euleriano')
 		tipo = {'euler': False}
 		response.append(tipo)
-		response.append({''})
+		
 
 
 	#print(d)

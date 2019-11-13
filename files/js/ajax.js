@@ -88,6 +88,8 @@ $('.actions').on('click', ".euler", function()  {
             //ejemplo de parsing
            euler = data[0]
            console.log(euler)
+
+           if(euler['euler']==false){alert('No hay camino de euler')}
            $("#resultados").html("")
            ciclo = data[1]
            console.log(ciclo)
@@ -186,6 +188,10 @@ $('.actions').on('click', ".hami", function()  {
             //ejemplo de parsing
            hami = data[0]
            console.log(hami)
+
+           if(hami['hami']==false){alert('No hay camino de Hamilton')}
+
+
            $("#resultados").html("")
            var cont=1;
 
