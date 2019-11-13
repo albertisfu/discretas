@@ -947,33 +947,40 @@ def ajax_hamilton(request):
 	hamiltoncamino = hamiltoniano()
 
 	camino2 = []
-	for idx, elem in enumerate(hamiltoncamino):
 
-		thiselem = elem
-		nextelem = hamiltoncamino[(idx + 1) % len(hamiltoncamino)]
+	if hamiltoncamino == False:
 
-		simetrico = []
-		simetrico.append(thiselem)
-		simetrico.append(nextelem)
+		pass
 
-		first = simetrico[0]
-		last = simetrico[-1]
+	else:	
 
-		elemento = [first, last]
-		elemento2 = [last, first]
+		for idx, elem in enumerate(hamiltoncamino):
 
-		if elemento in relacion or elemento2 in relacion:
-			camino2.append(simetrico)
+			thiselem = elem
+			nextelem = hamiltoncamino[(idx + 1) % len(hamiltoncamino)]
 
-	print('first camino', hamiltoncamino)
-	print('camino 2 ver', camino2)
+			simetrico = []
+			simetrico.append(thiselem)
+			simetrico.append(nextelem)
+
+			first = simetrico[0]
+			last = simetrico[-1]
+
+			elemento = [first, last]
+			elemento2 = [last, first]
+
+			if elemento in relacion or elemento2 in relacion:
+				camino2.append(simetrico)
+
+		print('first camino', hamiltoncamino)
+		print('camino 2 ver', camino2)
 
 
-	cam = camino2; 
-	print(cam)
+		cam = camino2; 
+		print(cam)
 
 	response = []	
-	if cam == False:
+	if hamiltoncamino == False:
 		
 		tipo = {'hami': False}
 		response.append(tipo)
