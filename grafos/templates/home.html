@@ -3,130 +3,103 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-<!--<link rel="stylesheet" href="{% static 'css/css/registro.css' %}">
-<link rel="stylesheet" href="css/textos.css">-->
-<script src="{% static 'js/external/jquery/jquery.js' %}"></script>
-<script src="{% static 'js/jquery-ui.js' %}"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
-
-
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-
-<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-
-<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
-
-<title>Grafos</title>
-
-
-<script src="{% static 'js/graph.js' %}"></script>
-
-</head>
-<body class="bg-light">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+    <script src="{% static 'js/external/jquery/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <title>Grafos</title>
+    <script src="{% static 'js/graph.js' %}"></script>
+  </head>
+  <body class="bg-light">
+    <!--Nav bar-->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Grafos Matemáticas Discretas</a>
       <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-
-          <form class="uploadForm" method="post" enctype="multipart/form-data">
-  <input type="file" id="uploadFile" class="btn btn-raised btn-info">
-  <input type="submit" class="button btn btn-raised btn-info" id="uploadButton" value="Subir">
-</form>
-
-
+      <form class="uploadForm" method="post" enctype="multipart/form-data">
+        <input type="file" id="uploadFile" class="btn btn-raised btn-info">
+        <input type="submit" class="button btn btn-raised btn-info" id="uploadButton" value="Subir">
+      </form>
       <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-
-                      <div class="actions"> <button type="button" class="btn btn-raised btn-success coloreo">Coloreo</button>
-                        <button type="button" class="btn btn-raised btn-success euler">Euler</button>
-
-                        <button type="button" class="btn btn-raised btn-success hami">Hamilton</button>
-
-                          <button type="button" class="btn btn-raised btn-warning" id="botonexportar" onclick="exportar();">Exportar</button>
-
-</div>
-
+        <div class="actions"> <button type="button" class="btn btn-raised btn-success coloreo">Coloreo</button>
+          <button type="button" class="btn btn-raised btn-success euler">Euler</button>
+          <button type="button" class="btn btn-raised btn-success hami">Hamilton</button>
+          <button type="button" class="btn btn-raised btn-warning" id="botonexportar" onclick="exportar();">Exportar</button>
+        </div>
       </div>
     </nav>
-
+    <!--Datos de Vertices-->
     <main role="main" class="container">
-
-
-
-<div class="row my-3 p-3 bg-white rounded box-shadow">
-          <div class="col-md-3">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="" id="newVertice">
-                 <div class="btn btn-raised btn-primary">Agregar Vertice</div>
-              </label>
-              <label>
-                <input type="checkbox" value="" id="newArista">
-                 <div class="btn btn-raised btn-primary">Agregar Arista</div>
-              </label>
-            </div>
-           </div>
-
-            <div class="col-md-3">
-                     <label> Vertice Origen </label>
-                      <select class="form-control" name="de" id="de" disabled></select>
-            </div>
-             <div class="col-md-3">
-                      <label> A: </label>
-                      <select class="form-control" name="a" id="a" disabled></select>
-              </div>
-              <div class="col-md-3" style="padding-top:10px;">
-                      <!--<button type="button" class="btn btn-raised btn-info" id="botonAgregarArista" onclick="agregarArista();">Agregar arista</button>-->
-              </div>
-
-
-  </div>
-
-
-
-
-
-
+      <div class="row my-3 p-3 bg-white rounded box-shadow">
+        <div class="col-md-3">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="newVertice">
+              <div class="btn btn-raised btn-primary">Agregar Vertice</div>
+            </label>
+            <label>
+              <input type="checkbox" value="" id="newArista">
+              <div class="btn btn-raised btn-primary">Agregar Arista</div>
+            </label>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label> Vertice Origen </label>
+          <select class="form-control" name="de" id="de" disabled></select>
+        </div>
+        <div class="col-md-3">
+          <label> A: </label>
+          <select class="form-control" name="a" id="a" disabled></select>
+        </div>
+        <div class="col-md-3" style="padding-top:10px;">
+          <button type="button" class="btn btn-raised btn-danger" onclick="restablecer();">Limpiar</button>
+        </div>
+      </div>
+      <!--Zona de dibujo + Resultados-->
         <form id="formulario" name="formulario">
-            <div class="form-group row">
-                <div class="row col-md-6">
-                    <div id="div_canvas" class="div_canvas">
-                      <canvas id="html_canvas" width="550" height="550" class="html_canvas"></canvas>
-                    </div>
-                </div>
-                <div class="col">
-                  <div>
-
-                    <div>
-                      <legend style="margin-bottom: 0px;">Aristas:</legend>
-                      <h3 id="aristas" class="resultados_despliegue"></h3>
-                      <legend style="margin-bottom: 0px;">Resultados:</legend>
-                      <h3 id="resultados" class="resultados_despliegue"></h3>
-                      <br />
-                      <button type="button" class="btn btn-raised btn-danger" onclick="restablecer();">Limpiar</button>
-                    </div>
-                  </div>
+        <div class="form-group row">
+          <div class="row col-md-6">
+            <div id="div_canvas" class="div_canvas">
+              <canvas id="html_canvas" width="1280" height="600" class="html_canvas"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="textos">
+          <div class="col">
+            <div>
+              <div>
+                <legend style="margin-bottom: 0px;">Aristas:</legend>
+                <h3 id="aristas" class="resultados_despliegue"></h3>
                 </div>
             </div>
-         </form>
-
+          </div>
+          <div class="col">
+            <div>
+              <div>
+                <legend style="margin-bottom: 0px;">Resultados:</legend>
+                <h3 id="resultados" class="resultados_despliegue"></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
     </main>
-</body>
+  </body>
 </html>
-
 <script src="{% static 'js/ajax.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/grafo.css' %}">

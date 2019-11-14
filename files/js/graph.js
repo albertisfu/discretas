@@ -169,6 +169,10 @@
         //Dibujar vértice
         $('#html_canvas').click(function(){
           if (document.getElementById("newVertice").checked) {
+            //Limpiamos Coloreo por agregar nuevo vertice
+            for (var i = 0; i < vertices.length; i++) {
+              $("#vertice_"+i).css("background-color", "#FFFFFF")
+            }
             $('#div_canvas').append('<div id="vertice_' + verticeActual + '" class="vertice" style="top: ' + arriba + 'px; left: ' + izquierda + 'px;">' + verticeActual + '</div>');
             $('#vertice_' + verticeActual).draggable({
               drag: function(e) {
@@ -233,6 +237,10 @@
     });
 
     function agregarArista2(origen,destino) {
+      //Limpiamos el coloreo que se tenia por agregar una nueva arista
+      for (var i = 0; i < vertices.length; i++) {
+        $("#vertice_"+i).css("background-color", "#FFFFFF")
+      }
       //Vértices
       var de = origen;
       var a = destino;

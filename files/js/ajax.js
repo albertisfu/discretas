@@ -45,9 +45,14 @@ $('.actions').on('click', ".coloreo", function()  {
                 $("#resultados").append("Chi de G: "+(max+1)+"<br>")
 
               });
-
+              for (var i = 0; i < vertices.length; i++) {
+                if ($("#vertice_" + i).css("background-color")=="rgb(255, 255, 255)") {
+                  console.log("Vertice sin colorear"+ i + "Aplicando Primer color");
+                  $("#vertice_"+i).css("background-color", colores[0])
+                }
+              }
           }
-          
+
 
 });
 
@@ -101,7 +106,13 @@ $('.actions').on('click', ".euler", function()  {
 
           console.log(data[1])
           $("#resultados").html("")
-          $("#resultados").append(data[1]["tipo"] +" de Euler<br>")
+          try {
+              $("#resultados").append(data[1]["tipo"] +" de Euler<br>")
+          } catch (e) {
+              $("#resultados").append("Grafo no Euleriano <br>")
+          } finally {
+
+          }
            ciclo = data[2]
            console.log(ciclo)
            clearCanvas();
@@ -141,6 +152,12 @@ $('.actions').on('click', ".euler", function()  {
 
 
 
+          },
+          error: function( jqXHR, textStatus, errorThrown ){
+            if (jqXHR.status == 500) {
+              $("#resultados").html("")
+              $("#resultados").append("Grafo no Euleriano <br>")
+            }
           }
 
 });
@@ -222,7 +239,6 @@ $('.actions').on('click', ".hami", function()  {
                 setTimeout(function(){
                   if (vertices[key][0]==vertices[val][0] && vertices[key][1]==vertices[val][1]) {
                     //Repintamos Arcos
-                    console.log("Lazo");
                     context.beginPath();
                     context.arc(vertices[key][1]+5, vertices[key][0]+5,10,0,Math.PI*2,true);
                     context.strokeStyle = "red";
@@ -339,15 +355,4 @@ formData.append('file', $('#uploadFile')[0].files[0]);
 
     }
   });
-});
-
-
-
-$(document).ready(function() {
-    $('.vertice').click(function(e) {
-      alert(1);
-      var id = $(this).attr('id');
-  console.log(id);
-
-    });
 });

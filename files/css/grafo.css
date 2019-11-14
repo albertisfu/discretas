@@ -15,21 +15,16 @@
       z-index: 5;
     }
     .div_canvas {
-      position: absolute;
-      top: 0px;
-      left: 0px;
       border: 0px;
       width: 550px;
       height: 550px;
       z-index: 1;
     }
     .html_canvas {
-      position: absolute;
-      top: 0px;
-      left: 0px;
+
       border: 1px solid black;
-      width: 550px;
-      height: 550px;
+      width: 1280px;
+      height: 600px;
       background-color: transparent;
       z-index: 4;
     }
@@ -54,4 +49,10 @@
 .actions{
     right: 30px;
     position: absolute;
+}
+
+#textos{
+  position: absolute;
+  top: 830px;
+  left: auto;
 }
