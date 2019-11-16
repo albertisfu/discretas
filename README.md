@@ -2,7 +2,7 @@
 
 El Software esta diseñado en Django, lo cual nos permite tener templates en formatos `.html`, para poder trabajar con JavaScript y desarrollar el entorno gráfico del usuario
 (dibujar el grafo, evitando la escritura de texto en el programa). 
-Esto nos permite ejecutar scripts mas complicados con Python (coloreo, hamilton y euler) en segundo plano.
+Esto nos permite ejecutar scripts más complejos con Python (coloreo, hamilton y euler) en segundo plano.
 
 **Funciones:**
 - Capacidad de dibujar grafos no dirigidos (no permite dobles arcos o aristas dirigidas).
@@ -37,7 +37,7 @@ Posibles mejoras:
 - [ ] Hacer más practica la seleccion de vertice de origen.
 - [ ] Agregar Atajos de teclado para realizar las funciones de euler, hamilton y coloreo.
 
-# Algorimo de Hamilton
+# Algoritmo de Hamilton
 ##### A Grandes rasgos:
 
 El algoritmo de hamilton esta basado en una busqueda a lo ancho llevado a cabo con recursividad. Este algorimo puede empezar en cualquier vertice seleccionado
@@ -49,7 +49,7 @@ visitando hasta llegar a la ultima decisión del programa **(gracias recursivida
 Este algoritmo prioriza buscar los ciclos por esta condición y en el dado caso que no encuentre dicho ciclo presentara un camino el cuál tiene que cumplir con la propiedad que la cantidad de vertices
 en dicho camino tiene que ser a la cantidad de vertices que tiene el grafo.
 
-# Algorimo de Euler
+# Algoritmo de Euler
 ##### A Grandes rasgos:
 
 Basado en el algorimo de Fleury primero se tiene que determinar si un grafo cumple con las propiedades de un grafo euleriano. Esto se hace
