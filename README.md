@@ -1,4 +1,5 @@
-# Software para representación de Grafos
+# REG-S (Representación de Grafos -Software-)
+
 El Software esta diseñado en Django, lo cual nos permite tener templates en formatos `.html`, para poder trabajar con JavaScript y desarrollar el entorno gráfico del usuario
 (dibujar el grafo, evitando la escritura de texto en el programa). 
 Esto nos permite ejecutar scripts mas complicados con Python (coloreo, hamilton y euler) en segundo plano.
