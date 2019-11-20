@@ -350,9 +350,8 @@ formData.append('file', $('#uploadFile')[0].files[0]);
       var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*255)).toString(16);});
       colores.push(randomColor)
     });
-
     repintar();
-
+    coloreo();
     }
   });
 });
