@@ -466,10 +466,9 @@ def ajax_euler(request):
 
 
 	def caminoeuler(relacion): 
-		
 		camino=[]
 		VmaxDeg = max(countedge.items(), key=operator.itemgetter(1))[0]
-		#print('VmaxDeg', VmaxDeg)
+		print('VmaxDeg', VmaxDeg)
 
 		sorteddeg = sorted(countedge.items(), key=operator.itemgetter(1), reverse=True)
 
