@@ -305,8 +305,6 @@ def nexteuler(Grelation, currentver, arista, camino):
 						aristanext = 0
 			else:
 				aristanext = 0
-
-				
 			nexteuler(Grelation1, currentver, aristanext, camino)
 
 
@@ -771,11 +769,10 @@ def ajax_hamilton(request):
 								print('*last_arista ', lastarista)
 
 
-								# declaring elements till which elements required 
+								
 								N = lastver
 
-								# Get elements till particular element in list 
-								# using index() + list slicing 
+							
 								temp = camino.index(N) 
 								res = camino[:temp+1] 
 
