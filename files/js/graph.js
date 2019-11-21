@@ -170,9 +170,9 @@
         $('#html_canvas').click(function(){
           if (document.getElementById("newVertice").checked) {
             //Limpiamos Coloreo por agregar nuevo vertice
-            for (var i = 0; i < vertices.length; i++) {
-              $("#vertice_"+i).css("background-color", "#FFFFFF")
-            }
+            //for (var i = 0; i < vertices.length; i++) {
+            //  $("#vertice_"+i).css("background-color", "#FFFFFF")
+            //}
             $('#div_canvas').append('<div id="vertice_' + verticeActual + '" class="vertice" style="top: ' + arriba + 'px; left: ' + izquierda + 'px;">' + verticeActual + '</div>');
             $('#vertice_' + verticeActual).draggable({
               drag: function(e) {
@@ -224,11 +224,11 @@
             o = new Option(verticeActual, verticeActual);
             $(o).html(verticeActual);
             $("#a").append(o);
-            $("#vertice_" + verticeActual).css("background-color", color);
-            verticeActual++;
             var p=Math.round, r=Math.random, s=255;
             var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*255)).toString(16);});
             colores.push(randomColor)
+            $("#vertice_" + verticeActual).css("background-color", colores[0]);
+            verticeActual++;
             //console.log(randomColor);
           }
         });
@@ -266,4 +266,59 @@
         //Ya existe
         alert('No se pueden duplicar aristas... O tener simetria');
       }
+      coloreo()
     }
+
+function coloreo(){
+  var grafo = [];
+  for (var i = 0; i < arregloAristas.length; i++) {
+    var puntos = arregloAristas[i].split(",");
+    var a=puntos[0];
+    var b=puntos[1];
+    grafo.push({[a]:b})
+  }
+  //var grafo = [{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'},{'6':'1'},{'6':'2'},{'6':'3'},{'6':'4'},{'6':'5'}];
+  console.log(grafo);
+  json_data = grafo;
+
+    //se mando a llamar con javascript
+    $.ajax({
+        url: '/coloreo/',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(json_data),
+        success: function (data) {
+
+        //agregar li si no existe o actualizar li si existe
+      data = JSON.parse(data);
+       console.log(data);
+
+
+       //Retorna lista de vertices con su color correspondiente, ejemplo:
+       //{"5": 0, "6": 1, "4": 2, "3": 3, "1": 4, "2": 5}
+
+       //ejemplo de parsing
+       var max=0;
+      $.each(data, function(key, val) {
+            //$("#vertice_" + idl).css("background-color", "#FFFFFF");
+            $("#vertice_"+key).css("background-color", colores[val])
+            console.log(key+ " *** " + val);
+            console.log('$("#vertice_"'+key+').css("background-color",'+colores[val]+')');
+            if (max<=val) {
+              max=val;
+            };
+            $("#resultados").html("")
+            $("#resultados").append("Chi de G: "+(max+1)+"<br>")
+
+          });
+          for (var i = 0; i < vertices.length; i++) {
+            if ($("#vertice_" + i).css("background-color")=="rgb(255, 255, 255)") {
+              console.log("Vertice sin colorear"+ i + "Aplicando Primer color");
+              $("#vertice_"+i).css("background-color", colores[0])
+            }
+          }
+      }
+    })
+
+}
