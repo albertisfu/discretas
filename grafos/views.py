@@ -1185,10 +1185,10 @@ def ajax_mis(request):
 
 	def FindMaxLength(lst): 
 		result = max(enumerate(lst), key=(lambda x: len(x[1])))
-		return result
+		return result[1]
      
 
-	print(FindMaxLength(colores)) 
+	print('mis ',FindMaxLength(colores)) 
 
 	misc = FindMaxLength(colores)
 
@@ -1256,7 +1256,7 @@ def ajax_cubierta(request):
 
 	def FindMaxLength(lst): 
 		result = max(enumerate(lst), key=(lambda x: len(x[1])))
-		return result
+		return result[1]
      
 
 	print(FindMaxLength(colores)) 
