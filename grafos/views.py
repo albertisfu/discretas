@@ -1133,6 +1133,81 @@ def ajax_coloreo(request):
 
 
 
+
+@csrf_exempt
+def ajax_mis(request):
+    #instancia
+	#relacion = [['1','2'], ['1','3'], ['1','4'],['1','5'],['2','3'], ['2','4'], ['2','5'], ['3','4'], ['3','5'], ['4','5'], ['6','1'], ['6','2'], ['6','3'], ['6','4'], ['6','5']]
+
+	#print('request')
+	data = json.loads(request.body)
+	#print(data)
+
+	relacion = []
+
+	vers = data['vers'];
+	edges = data['edges'];
+
+
+	conjuntoA = []
+	for v in vers:
+		print(v)
+		conjuntoA.append(v);
+
+	for ele in edges:
+		#print(ele)
+		elemento = []
+		for ed in ele:
+			#print(ed)
+			value = ele[ed]
+			#print(value)
+
+			elemento.append(ed)
+			elemento.append(value)
+
+			relacion.append(elemento)
+
+	#print('relaciion')
+	#print(relacion)
+
+
+	#g = agregarAgrafo(relacion)
+
+	#d = colore_grafo(g, strategy='independent_set')
+
+	#print(d)
+
+
+	colores = colorea(relacion, conjuntoA)
+
+	print('colores return, ', colores)
+
+
+	def FindMaxLength(lst): 
+	    maxList = max((x) for x in lst) 
+	    maxLength = max(len(x) for x in lst ) 
+	  
+	    return maxList
+     
+
+	print(FindMaxLength(colores)) 
+
+	misc = FindMaxLength(colores)
+
+
+
+	response_data = []
+	if request.method == 'POST':
+
+		response = json.dumps(misc,  ensure_ascii=False)
+		print(response)
+		return JsonResponse(response, safe=False)
+		return response
+
+
+
+
+
 @csrf_exempt
 def ajax_euler(request):
     
