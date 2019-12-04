@@ -1184,10 +1184,8 @@ def ajax_mis(request):
 
 
 	def FindMaxLength(lst): 
-	    maxList = max((x) for x in lst) 
-	    maxLength = max(len(x) for x in lst ) 
-	  
-	    return maxList
+		result = max(enumerate(lst), key=(lambda x: len(x[1])))
+		return result
      
 
 	print(FindMaxLength(colores)) 
@@ -1257,10 +1255,8 @@ def ajax_cubierta(request):
 
 
 	def FindMaxLength(lst): 
-	    maxList = max((x) for x in lst) 
-	    maxLength = max(len(x) for x in lst ) 
-	  
-	    return maxList
+		result = max(enumerate(lst), key=(lambda x: len(x[1])))
+		return result
      
 
 	print(FindMaxLength(colores)) 
