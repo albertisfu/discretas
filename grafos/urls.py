@@ -16,7 +16,7 @@ urlpatterns = [
     path('coloreo/', views.ajax_coloreo, name='ajax_coloreo'),
     path('euler/', views.ajax_euler, name='ajax_euler'),
 
-    path('mis/', views.ajax_mis, name='ajax_mis')
+    path('mis/', views.ajax_mis, name='ajax_mis'),
     path('cubierta/', views.ajax_cubierta, name='ajax_cubierta'),
 
     
