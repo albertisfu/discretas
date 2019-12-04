@@ -331,6 +331,714 @@ def euler(Grelation, Vertice, camino):
 
 
 
+def colorea(relacion, conjuntoA): 
+	impar = 0
+	countedge = {}
+	for ele in conjuntoA:
+		
+		for rel in relacion:
+			if ele==rel[0]:
+				if ele in countedge:
+					countedge[ele] += 1
+				else:
+					countedge[ele] = 1
+
+
+			if ele==rel[1]:
+				if ele in countedge:
+					countedge[ele] += 1
+				else:
+					countedge[ele] = 1
+
+
+
+	print('grados')
+	print(countedge)
+
+
+
+
+	def aristasLocal(vertice, relacion):
+		relgrado = []
+		for rel in relacion:
+			if len(rel) >1:
+				if vertice==rel[0]:
+					relgrado.append(rel[1])
+				if vertice==rel[1]:
+					relgrado.append(rel[0])
+			else:
+				pass
+
+
+		return relgrado
+
+
+	def aristasLocalaris(vertice, relacion):
+		relgrado = []
+		for rel in relacion:
+			if len(rel) >1:
+				if vertice==rel[0]:
+					relgrado.append(rel)
+				if vertice==rel[1]:
+					relgrado.append(rel)
+			else:
+				pass
+
+		return relgrado
+
+
+
+
+
+	def nextmis(Grelation, Vertice,ver, coi, cois):
+		pass
+
+
+	def mis(Grelation, Vertice, coi, cois):
+
+		#eliminar aristas relacionadas directamente con el vertice inicial
+		def deletedirectaris(Grelation, Vertice, afterel):
+			for aris in Grelation:
+
+				if len(aris) >1:
+					if aris[0] ==  Vertice or aris[1] ==  Vertice:
+						afterel.remove(aris)
+
+				else:
+					if aris[0] ==  Vertice:
+						afterel.remove(aris)
+
+
+
+		#elimina aristas entre vertices que estaban relacionados directamente al vertice inicial
+		def deletebwtaris(relaris, afterel):
+			for verti in relaris:
+				copydifver = relaris[:]
+				copydifver.remove(verti)
+				for ver in copydifver:
+					aristest = [ver, verti]
+					aristest2 = [verti, ver]
+					
+					if aristest in afterel or aristest2 in afterel:
+						if aristest in afterel:
+							afterel.remove(aristest)
+						else:
+							afterel.remove(aristest2)
+
+		#elimina aristas entre vertices relacionados directamente con el vertice inicial y vertices que no relacionados con el inicial
+		def deletebwtarisnolo(relaris, difver, afterel):
+			for ver2 in relaris:
+				for veraft  in difver:
+					aristest = [ver2, veraft]
+					aristest2 = [veraft, ver2]
+					#print('aristest ', aristest)
+					#print('aristest2 ',  aristest2)
+					if aristest in afterel or aristest2 in afterel:
+						if aristest in afterel:
+							afterel.remove(aristest)
+						else:
+							afterel.remove(aristest2)
+
+
+		
+		#obtener vertices contemplados en el grafo nuevo, despues de limpiar
+		def getcleangraf(difver, afterel,relexiste):
+			for verexist  in difver:
+				#print('verexist ', verexist)
+				for arise in afterel:
+					#print('arise ', arise)
+
+					if len(arise) >1:
+
+						if verexist == arise[0] or verexist== arise[1]:
+							#print('si existe ', verexist)
+							if verexist not in relexiste:
+								relexiste.append(verexist)
+
+					else:
+						if verexist == arise[0]:
+						#print('si existe ', verexist)
+							if verexist not in relexiste:
+								relexiste.append(verexist)
+					#else:
+					#	print('ver no exist ', verexist)
+
+			
+
+
+		#vertices que no estan en el grafo resultante, forma parte directamente del coi
+		def getaloneverti(difver, relexiste):	
+			noexiste = list(set(difver) - set(relexiste))
+			print('rel no existe ', noexiste)
+			return noexiste
+
+
+
+		def groupgrafo(lista, graf, grafos):
+			color = 0
+			pendientes = []
+			for ver in lista:
+				#agregamos primer vertice o vertices desconectado
+				if ver not in grafos:
+					grafos[ver] = color
+				#obtener vecinos del primer vertice
+				rellocal = aristasLocal(ver, graf)
+
+				for verl in rellocal:
+					pendientes.append(verl)
+				###print('grafos bef ', grafos)
+				###print('pend before while ', pendientes)
+
+				lenpen = len(pendientes)
+
+				print('lenpend, ', lenpen)
+
+				if lenpen == 0:
+					condi = 0
+					print('condi after', condi)
+				else:
+					condi=1
+
+				while condi == 1:
+					###print('condi before', condi)
+					###print('pend in while ', pendientes)
+					last_ele = pendientes[-1]
+					
+					if last_ele not in grafos:
+						###print('entreo if 1')
+						grafos[last_ele] = color
+						###print('grafos in ', grafos)
+						pendientes.remove(last_ele)
+
+					else:
+						pendientes.remove(last_ele)
+
+		
+					relo2 = aristasLocal(last_ele, graf)
+					###print('relo 2', relo2)
+					for vern in relo2:
+						if vern not in grafos:
+							###print('entreo if 2')
+
+							pendientes.append(vern)
+
+
+					print('pendientes last ', pendientes)
+
+					lenpen = len(pendientes)
+
+					print('lenpend, ', lenpen)
+
+					if lenpen == 0:
+						condi = 0
+						print('condi after', condi)
+						
+					###print('pendientes 2 ', pendientes)
+					#time.sleep(1)
+				color = color +1
+
+			print('grafos, ',grafos)
+
+
+
+		def getsubgrafos(grafos, subgrafos, afterel):
+			v = {}
+			for key, value in sorted(grafos.items()):
+				v.setdefault(value, []).append(key)
+			print('grafo gropup ', v)
+
+			for key, value in v.items():
+				print('value, ', value)
+				subgraf = []
+				for el in value:
+					for af in afterel:
+						if len(af)>1:
+							if el == af[0] or el == af[1]:
+								if af not in subgraf:
+									subgraf.append(af)
+						else: 
+							if el == af[0]:
+								if af not in subgraf:
+									subgraf.append(af)
+				subgrafos.append(subgraf)
+
+
+		def grafelements(grafo, conjunto):
+			for elem in grafo:
+
+				if len(elem)>1:
+
+					if elem[0] not in conjunto:
+						conjunto.append(elem[0])
+
+					if elem[1] not in conjunto:
+						conjunto.append(elem[1])
+				else:
+					if elem[0] not in conjunto:
+						conjunto.append(elem[0])
+
+
+
+		def countdeg(Grelation,conjunto): 
+			countdeg = {}
+			impar = 0
+			for ele in conjunto:
+				
+				for rel in Grelation:
+					if len(rel)>1:
+
+						if ele==rel[0]:
+							if ele in countdeg:
+								countdeg[ele] += 1
+							else:
+								countdeg[ele] = 1
+
+						if ele==rel[1]:
+							if ele in countdeg:
+								countdeg[ele] += 1
+							else:
+								countdeg[ele] = 1
+					else:
+
+						if ele==rel[0]:
+							if ele in countdeg:
+								countdeg[ele] =0
+							else:
+								countdeg[ele] =0
+
+						if ele==rel[0]:
+							if ele in countdeg:
+								countdeg[ele] =0
+							else:
+								countdeg[ele] =0
+
+
+			return countdeg
+
+
+		for ver in Grelation:
+
+			if ver[0] ==  Vertice or ver[1] ==  Vertice:
+
+				if ver[0]==Vertice:
+					currentver = ver[0]
+				else:
+					currentver = ver[1]
+
+				print('Vertice inicial: ', currentver)
+
+				coi.append(currentver)
+
+				relaris = aristasLocal(Vertice, Grelation)
+				print('rel aris', relaris)
+
+
+				afterel = Grelation[:]
+
+				difver = list(set(conjuntoA) - set(relaris))
+				difver.remove(currentver)
+				print('list after', difver)
+
+
+				deletedirectaris(Grelation, Vertice, afterel)
+				deletebwtaris(relaris, afterel)
+				deletebwtarisnolo(relaris, difver, afterel)
+				print('grafo afterdel ',afterel)
+
+				relexiste = []
+				getcleangraf(difver, afterel,relexiste)
+				print('relexiste ', relexiste)
+
+				noexist = getaloneverti(difver, relexiste)
+
+				#agregar vertices aislados a coi
+				for ele in noexist:
+					coi.append(ele)
+				print('0.1independet set ', coi )
+
+
+				#iterar en afterdel para encontrar resto de conjunto independiente 
+
+				grafos = {}
+
+				groupgrafo(relexiste, afterel, grafos)
+
+				subgrafos = []
+
+				getsubgrafos(grafos, subgrafos, afterel)
+
+				
+
+				print('0.1last subgrafo ', subgrafos )
+
+				#buscar relacion entre aristas independientes y repetir algoritmo de conjunto
+				
+
+				lensubgrafos = len(subgrafos)
+
+				if lensubgrafos >0:
+					contin = 1
+				else:
+					contin =0
+
+				#############################
+				while contin ==1:
+					last_grafo = subgrafos[-1]
+
+					subgrafos.remove(last_grafo)
+
+					newconjunt = []
+					grafelements(last_grafo, newconjunt)
+
+					print('1.1graf elements11 ', newconjunt)
+
+					
+					countdeg1  = countdeg(last_grafo,newconjunt)
+
+					NodeMaxDeg = max(countdeg1.items(), key=operator.itemgetter(1))[0]
+					print('1.1new max deg11',NodeMaxDeg)
+
+
+					coi.append(NodeMaxDeg)
+
+					relaris2 = aristasLocal(NodeMaxDeg, last_grafo)
+					print('1.1rel aris', relaris2)
+
+					afterel2 = last_grafo[:]
+
+					difver2 = list(set(newconjunt) - set(relaris2))
+
+					print('1.1 difver ', difver2)
+					difver2.remove(NodeMaxDeg)
+					print('1.1list after', NodeMaxDeg)
+
+
+					deletedirectaris(last_grafo, NodeMaxDeg, afterel2)
+					deletebwtaris(relaris2, afterel2)
+					deletebwtarisnolo(relaris2, difver2, afterel2)
+					print('1.1grafo afterdel2 ',afterel2)
+
+					relexiste2 = []
+					getcleangraf(difver2, afterel2,relexiste2)
+					print('1.1relexiste2 ', relexiste2)
+
+					noexist2 = getaloneverti(difver2, relexiste2)
+
+					#agregar vertices aislados a coi
+					for ele in noexist2:
+						coi.append(ele)
+					print('1.1independet set ', coi )
+
+					#iterar en afterdel para encontrar resto de conjunto independiente 
+
+					grafos2 = {}
+
+					groupgrafo(relexiste2, afterel2, grafos2)
+					getsubgrafos(grafos2, subgrafos, afterel2)
+
+					print('1.1last subgrafo2', subgrafos )
+
+
+					lensubgrafos = len(subgrafos)
+
+					if lensubgrafos >0:
+						contin = 1
+					else:
+						contin =0
+
+				#add independent set
+				cois.append(coi)
+
+
+				#diferencia de grafo, original menos arista de coi
+
+
+				#############
+
+
+				nextgrafo = Grelation[:]
+				for ele in coi:
+					for aris in Grelation:
+						if len(aris)>1:
+							if ele == aris[0] or ele == aris[1]:
+								#evitar eliminar aristas con un solo vertice.
+								nextgrafo.remove(aris)
+						else:
+							if ele == aris[0]:
+								#evitar eliminar aristas con un solo vertice.
+								nextgrafo.remove(aris)
+
+
+				print('test next grafo ', nextgrafo)
+				print('test coit ', coi)
+				newconjunt2 = []
+
+				#comparar elementos del grafo original
+				grafelements(Grelation, newconjunt2)
+
+				#revisar si los elementos del grafo original ya estan en coi, para que no se pierda ninguno
+				noexist3 = getaloneverti(newconjunt2, coi)
+
+				print('***no existe 11', noexist3)
+
+				print('***next grafbefore 1 ', nextgrafo )
+
+				nextcopy = nextgrafo[:]
+
+				#agregar a nexgrafo los elementos que no existan.
+				for non in noexist3:
+					find = 0
+					for el in nextcopy:
+						if len(el)>1:
+							if el[0]==non or el[1]==non:
+								find = 1
+						else:
+							if el[0]==non:
+								find = 1
+
+
+					if find == 0:
+						val =[]
+						val.append(non)
+						if val not in nextgrafo:
+							nextgrafo.append(val)
+							
+				print('1111 after next grafo*** ', nextgrafo )
+
+				#############
+
+		
+
+				lennextgrafo = len(nextgrafo)
+
+				if lennextgrafo >0:
+					contn = 1
+				else:
+					contn =0
+
+				while contn == 1:
+					coi =[]
+
+
+					newconjunt1 = []
+					grafelements(nextgrafo, newconjunt1)
+
+					print('graf elements2 ', newconjunt1)
+
+					
+					countdeg0  = countdeg(nextgrafo,newconjunt1)
+
+					NodeMaxDeg = max(countdeg0.items(), key=operator.itemgetter(1))[0]
+					print('new max deg 2',NodeMaxDeg)
+
+
+					coi.append(NodeMaxDeg)
+
+					relaris = aristasLocal(NodeMaxDeg, nextgrafo)
+					print('rel aris', relaris)
+
+
+					afterel = nextgrafo[:]
+
+					difver = list(set(newconjunt1) - set(relaris))
+
+					print('dif ver err 1', difver)
+					if len(difver)>=1:
+						difver.remove(NodeMaxDeg)
+						print('list after', difver)
+
+
+						deletedirectaris(nextgrafo, NodeMaxDeg, afterel)
+						deletebwtaris(relaris, afterel)
+						deletebwtarisnolo(relaris, difver, afterel)
+						print('grafo afterdel ',afterel)
+
+						relexiste = []
+						getcleangraf(difver, afterel,relexiste)
+						print('relexiste ', relexiste)
+
+						noexist = getaloneverti(difver, relexiste)
+
+						#agregar vertices aislados a coi
+						for ele in noexist:
+							coi.append(ele)
+						print('independet set ', coi )
+
+						#iterar en afterdel para encontrar resto de conjunto independiente 
+
+						grafos = {}
+
+						groupgrafo(relexiste, afterel, grafos)
+
+						subgrafos = []
+
+						getsubgrafos(grafos, subgrafos, afterel)
+
+						
+
+						print('last subgrafo ', subgrafos )
+
+						#buscar relacion entre aristas independientes y repetir algoritmo de conjunto
+						
+
+						lensubgrafos = len(subgrafos)
+
+						if lensubgrafos >0:
+							contin = 1
+						else:
+							contin =0
+					else:
+						contin =0
+
+
+					while contin ==1:
+						last_grafo = subgrafos[-1]
+
+						subgrafos.remove(last_grafo)
+
+						newconjunt = []
+						grafelements(last_grafo, newconjunt)
+
+						print('graf elements ', newconjunt)
+
+						
+						countdeg1  = countdeg(last_grafo,newconjunt)
+
+						NodeMaxDeg = max(countdeg1.items(), key=operator.itemgetter(1))[0]
+						print('new max deg 3',NodeMaxDeg)
+
+
+						coi.append(NodeMaxDeg)
+
+						relaris2 = aristasLocal(NodeMaxDeg, last_grafo)
+						print('rel aris', relaris2)
+
+						afterel2 = last_grafo[:]
+
+						difver2 = list(set(newconjunt) - set(relaris2))
+						print('difver berror',difver2 )
+
+						if len(difver2)>=1:
+							difver2.remove(NodeMaxDeg)
+							print('list after', NodeMaxDeg)
+
+
+							deletedirectaris(last_grafo, NodeMaxDeg, afterel2)
+							deletebwtaris(relaris2, afterel2)
+							deletebwtarisnolo(relaris2, difver2, afterel2)
+							print('grafo afterdel2 ',afterel2)
+
+							relexiste2 = []
+							getcleangraf(difver2, afterel2,relexiste2)
+							print('relexiste2 ', relexiste2)
+
+							noexist2 = getaloneverti(difver2, relexiste2)
+
+							#agregar vertices aislados a coi
+							for ele in noexist2:
+								coi.append(ele)
+							print('independet set ', coi )
+
+							#iterar en afterdel para encontrar resto de conjunto independiente 
+
+							grafos2 = {}
+
+							groupgrafo(relexiste2, afterel2, grafos2)
+							getsubgrafos(grafos2, subgrafos, afterel2)
+
+							print('last subgrafo2', subgrafos )
+
+
+							lensubgrafos = len(subgrafos)
+
+							if lensubgrafos >0:
+								contin = 1
+							else:
+								contin = 0
+
+						else:
+							contin = 0
+
+
+
+
+					#add independent set
+					cois.append(coi)
+
+
+
+					nextgrafo1 = nextgrafo[:]
+					for ele in coi:
+						for aris in nextgrafo1:
+							if len(aris)>1:
+								if ele == aris[0] or ele == aris[1]:
+									#evitar eliminar aristas con un solo vertice.
+									nextgrafo.remove(aris)
+							else:
+								if ele == aris[0]:
+									#evitar eliminar aristas con un solo vertice.
+									nextgrafo.remove(aris)
+
+
+
+					newconjunt2 = []
+					grafelements(nextgrafo1, newconjunt2)
+
+
+					noexist3 = getaloneverti(newconjunt2, coi)
+
+					print('***no existe 3', noexist3)
+
+					print('***next grafbefore ', nextgrafo )
+
+					nextcopy = nextgrafo[:]
+					for non in noexist3:
+						find = 0
+						for el in nextcopy:
+							if len(el)>1:
+								if el[0]==non or el[1]==non:
+									find = 1
+							else:
+								if el[0]==non:
+									find = 1
+
+
+						if find == 0:
+							val =[]
+							val.append(non)
+							if val not in nextgrafo:
+								nextgrafo.append(val)
+								
+
+
+
+					print('after next grafo*** ', nextgrafo )
+
+					lennextgrafo = len(nextgrafo)
+
+					if lennextgrafo >0:
+						contn = 1
+					else:
+						contn =0
+
+
+
+				#nextmis(Grelation, Vertice,ver, coi, cois)
+
+				break
+
+
+	NodeMaxDeg = max(countedge.items(), key=operator.itemgetter(1))[0]
+	print(NodeMaxDeg)
+
+
+	coi=[]
+	cois = []
+
+	mis(relacion, NodeMaxDeg, coi, cois)
+
+	return cois
+
 
 
 
@@ -361,7 +1069,16 @@ def ajax_coloreo(request):
 
 	relacion = []
 
-	for ele in data:
+	vers = data['vers'];
+	edges = data['edges'];
+
+
+	conjuntoA = []
+	for v in vers:
+		print(v)
+		conjuntoA.append(v);
+
+	for ele in edges:
 		#print(ele)
 		elemento = []
 		for ed in ele:
@@ -378,11 +1095,33 @@ def ajax_coloreo(request):
 	#print(relacion)
 
 
-	g = agregarAgrafo(relacion)
+	#g = agregarAgrafo(relacion)
 
-	d = colore_grafo(g, strategy='independent_set')
+	#d = colore_grafo(g, strategy='independent_set')
 
 	#print(d)
+
+
+	colores = colorea(relacion, conjuntoA)
+
+	print('colores return, ', colores)
+
+	d = {}
+
+	color = 0
+	for arr in colores:
+		
+		for ver in arr:
+			d[ver] = color
+
+		color = color +1
+
+
+	print('d, colores ', d)
+
+
+
+
 
 	response_data = []
 	if request.method == 'POST':

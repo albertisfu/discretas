@@ -2,16 +2,21 @@
 $('.actions').on('click', ".coloreo", function()  {
 
 
-      //Enviar lista de aristas del grafo sin simetrias, ejemplo:
-      var grafo = [];
+     //Enviar lista de aristas del grafo sin simetrias, ejemplo:
+      var edges=[]
       for (var i = 0; i < arregloAristas.length; i++) {
         var puntos = arregloAristas[i].split(",");
         var a=puntos[0];
         var b=puntos[1];
-        grafo.push({[a]:b})
+        edges.push({[a]:b})
       }
-      //var grafo = [{'1':'2'},{'1':'3'},{'1':'4'},{'1':'5'},{'2':'3'},{'2':'4'},{'2':'5'},{'3':'4'},{'3':'5'},{'4':'5'},{'6':'1'},{'6':'2'},{'6':'3'},{'6':'4'},{'6':'5'}];
-      console.log(grafo);
+      var verts=[]
+      for (var i = 0; i < vertices.length; i++) {
+        verts.push(i+"")
+      }
+      console.log(verts);
+      console.log(edges);
+      var grafo = {'vers':verts, 'edges':edges};
       json_data = grafo;
 
         //se mando a llamar con javascript
