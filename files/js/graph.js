@@ -266,7 +266,7 @@
         //Ya existe
         alert('No se pueden duplicar aristas... O tener simetria');
       }
-      coloreo()
+      //coloreo()
     }
 
 function coloreo(){

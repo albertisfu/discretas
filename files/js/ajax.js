@@ -356,7 +356,7 @@ formData.append('file', $('#uploadFile')[0].files[0]);
       colores.push(randomColor)
     });
     repintar();
-    coloreo();
+    //coloreo();
     }
   });
 });
