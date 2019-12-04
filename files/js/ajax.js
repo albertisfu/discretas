@@ -108,28 +108,9 @@ $('.actions').on('click', ".coloreo", function()  {
                    $("#resultados").html("");
                    $("#resultados").append("MIS: <br>");
                   $.each(data, function(key,val) {
-                        //$("#vertice_" + idl).css("background-color", "#FFFFFF");
-                        console.log(val);
-                        $("#vertice_"+val).css("background-color", "rgb(255, 0, 0)" );
-                        $("#resultados").append(val+"&nbsp;&nbsp;");
-
-                        /*
-                        console.log(key+ " *** " + val);
-                        console.log('$("#vertice_"'+key+').css("background-color",'+colores[val]+')');
-                        if (max<=val) {
-                          max=val;
-                        };
-                        $("#resultados").html("")
-                        $("#resultados").append("Chi de G: "+(max+1)+"<br>")*/
-
-                      });
-
-                      /*for (var i = 0; i < vertices.length; i++) {
-                        if ($("#vertice_" + i).css("background-color")=="rgb(255, 255, 255)") {
-                          console.log("Vertice sin colorear"+ i + "Aplicando Primer color");
-                          $("#vertice_"+i).css("background-color", colores[0])
-                        }
-                      }*/
+                      $("#vertice_"+val).css("background-color", "rgb(255, 0, 0)" );
+                      $("#resultados").append(val+"&nbsp;&nbsp;");
+                    });
                   }
 
 
@@ -137,6 +118,61 @@ $('.actions').on('click', ".coloreo", function()  {
 
             return false;
                 });
+
+                $('.actions').on('click', ".cubierta", function()  {
+
+                     //Enviar lista de aristas del grafo sin simetrias, ejemplo:
+                      var edges=[]
+                      for (var i = 0; i < arregloAristas.length; i++) {
+                        var puntos = arregloAristas[i].split(",");
+                        var a=puntos[0];
+                        var b=puntos[1];
+                        edges.push({[a]:b})
+                      }
+                      var verts=[]
+                      for (var i = 0; i < vertices.length; i++) {
+                        verts.push(i+"")
+                      }
+                      //console.log(verts);
+                      //console.log(edges);
+                      var grafo = {'vers':verts, 'edges':edges};
+                      json_data = grafo;
+
+                        //se mando a llamar con javascript
+                        $.ajax({
+                            url: '/cubierta/',
+                            type: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(json_data),
+                            success: function (data) {
+
+                            //agregar li si no existe o actualizar li si existe
+                            data = JSON.parse(data);
+                            console.log(data);
+
+
+                           //Retorna lista de vertices con su color correspondiente, ejemplo:
+                           //{"5": 0, "6": 1, "4": 2, "3": 3, "1": 4, "2": 5}
+
+                           //ejemplo de parsing
+                           var max=0;
+                           for (var i = 0; i < vertices.length; i++) {
+                             $("#vertice_"+i).css("background-color", "rgb(255, 255, 255)")
+                           }
+                           $("#resultados").html("");
+                           $("#resultados").append("Cubierta: <br>");
+                          $.each(data, function(key,val) {
+                              $("#vertice_"+val).css("background-color", "rgb(0, 255, 0)" );
+                              $("#resultados").append(val+"&nbsp;&nbsp;");
+                            });
+                          }
+
+
+                });
+
+                    return false;
+                        });
 
 $('.actions').on('click', ".euler", function()  {
 
